@@ -10,6 +10,7 @@
 ## Week 4
 - Tuesday 12:00pm
 - Wednesday 8:00pm
+- Thursday 9:00pm
 - Friday 9:00pm
 
 ## Week 5
