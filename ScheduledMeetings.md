@@ -14,3 +14,6 @@
 - Friday 9:00pm
 
 ## Week 5
+- Monday 7:00pm
+- Wednesday 9:00pm
+- Friday 9:00pm
