@@ -18,3 +18,8 @@
 - Wednesday 9:00pm
 - Thursday 8:00pm
 - Friday 6:00pm
+
+## Week 6
+- Wednesday 7:00pm
+- Thursday 2:00pm
+- Saturday 8:00pm
