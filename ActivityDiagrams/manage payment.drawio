@@ -1,0 +1,158 @@
+<mxfile host="app.diagrams.net" modified="2023-10-15T23:21:09.660Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="ACupi9vgAw-gfqmPrPJK" version="22.0.4" type="device">
+  <diagram name="Page-1" id="Uj6UvqI-gxSFUdvOKR-1">
+    <mxGraphModel dx="1468" dy="938" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-2" target="RtbL9u-Ffa7LVgdffY9_-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-2" value="User logs in and navigates to manage the payment" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-3" target="RtbL9u-Ffa7LVgdffY9_-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-3" value="System retrieves the user&#39;s payment methods" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-4" target="RtbL9u-Ffa7LVgdffY9_-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-4" target="RtbL9u-Ffa7LVgdffY9_-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-4" target="RtbL9u-Ffa7LVgdffY9_-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-4" value="Do you wanna:&lt;br&gt;Add / delete&amp;nbsp;/ edit an existing payment method?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="347" y="250" width="134" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-5" target="RtbL9u-Ffa7LVgdffY9_-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-5" value="Add new payment method" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="500" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-6" target="RtbL9u-Ffa7LVgdffY9_-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-6" value="Edit existing payment method" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="500" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-7" target="RtbL9u-Ffa7LVgdffY9_-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-7" value="Delete an existing payment method" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="670" y="500" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-8" target="RtbL9u-Ffa7LVgdffY9_-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-8" value="Enter:&lt;br&gt;1. card number&lt;br&gt;2. expiry date (MM/YYYY)&lt;br&gt;3. CVV&lt;br&gt;4. Name of the card holder" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="27.5" y="630" width="185" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-9" target="RtbL9u-Ffa7LVgdffY9_-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="10" y="840" />
+              <mxPoint x="10" y="530" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-9" target="RtbL9u-Ffa7LVgdffY9_-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-9" value="Is the information valid ?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="75" y="780" width="90" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-13" value="NO" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="20" y="848" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-14" value="Add the payment method to the user&#39;s database. Redirect to the confirmation page" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="960" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-16" value="YES" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="55" y="908" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-20" value="ADD" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="155" y="438" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-21" value="EDIT" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="415" y="438" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-22" value="DELETE" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="625" y="448" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-25" target="RtbL9u-Ffa7LVgdffY9_-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-25" value="Select the method you wanna edit" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="610" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-26" target="RtbL9u-Ffa7LVgdffY9_-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-26" value="Select the info you wanna edit and make changes" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="346" y="720" width="136" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-29" target="RtbL9u-Ffa7LVgdffY9_-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-29" target="RtbL9u-Ffa7LVgdffY9_-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="280" y="908" />
+              <mxPoint x="280" y="530" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-29" value="Is the information valid ?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="369" y="848" width="90" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-30" target="RtbL9u-Ffa7LVgdffY9_-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="474" y="1060" />
+              <mxPoint x="810" y="1060" />
+              <mxPoint x="810" y="170" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-30" value="Update the payment method to the user&#39;s database." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="1020" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-33" value="YES" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="355" y="968" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-35" value="NO" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="280" y="878" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-36" target="RtbL9u-Ffa7LVgdffY9_-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-36" value="Select the method you wanna delete" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="670" y="620" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-39" target="RtbL9u-Ffa7LVgdffY9_-42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-39" value="Are you sure about the deletion ?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="685" y="728" width="90" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="RtbL9u-Ffa7LVgdffY9_-42">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="810" y="940" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="730" y="1060" />
+              <mxPoint x="810" y="1060" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RtbL9u-Ffa7LVgdffY9_-42" value="Delete the payment method in the user&#39;s database." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="670" y="900" width="120" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
