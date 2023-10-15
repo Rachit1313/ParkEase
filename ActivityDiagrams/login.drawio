@@ -1,0 +1,94 @@
+<mxfile host="app.diagrams.net" modified="2023-10-15T22:18:27.373Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="QfinYPcgNZ8g2PbGD4BH" version="21.6.8" type="device">
+  <diagram name="Page-1" id="kN4h1wMFWlhMRI1JoHoe">
+    <mxGraphModel dx="1590" dy="1017" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tHWacRIK37oqPSYCpXRU-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tHWacRIK37oqPSYCpXRU-1" target="tHWacRIK37oqPSYCpXRU-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-1" value="Start" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="106" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="tHWacRIK37oqPSYCpXRU-2" target="tHWacRIK37oqPSYCpXRU-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-2" value="Enter the username and password" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="193" y="390" width="157" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tHWacRIK37oqPSYCpXRU-3" target="tHWacRIK37oqPSYCpXRU-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-3" value="This is the login page" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="211" y="290" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tHWacRIK37oqPSYCpXRU-7" target="tHWacRIK37oqPSYCpXRU-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tHWacRIK37oqPSYCpXRU-7" target="tHWacRIK37oqPSYCpXRU-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-7" value="Are the credentials valid ?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="207.5" y="520" width="127" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-8" value="Redirect to the home page" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="8" y="545" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="tHWacRIK37oqPSYCpXRU-9" target="tHWacRIK37oqPSYCpXRU-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="271" y="770" />
+              <mxPoint x="410" y="770" />
+              <mxPoint x="410" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-9" value="Display error message. Prompt user to re-enter the credentials" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="211" y="680" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-13" value="YES" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="148" y="545" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-14" value="NO" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="272" y="640" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tHWacRIK37oqPSYCpXRU-15" target="tHWacRIK37oqPSYCpXRU-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tHWacRIK37oqPSYCpXRU-15" target="tHWacRIK37oqPSYCpXRU-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-15" value="Have you signed up ?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="140" width="126" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-17" value="Enter to signup. &lt;br&gt;Redirect to signup page" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="690" y="480" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tHWacRIK37oqPSYCpXRU-20" target="tHWacRIK37oqPSYCpXRU-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="tHWacRIK37oqPSYCpXRU-20" target="tHWacRIK37oqPSYCpXRU-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-20" value="Do you wanna signup ?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="290" width="110" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-23" value="YES" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="690" y="410" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-24" value="Forgot Password.&lt;br&gt;Redirect to Reset Password Page." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="480" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-28" value="NO" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="550" y="408" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-29" value="NO" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="500" y="238" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tHWacRIK37oqPSYCpXRU-30" value="YES" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="285" y="228" width="50" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
