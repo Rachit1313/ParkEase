@@ -1,9 +1,94 @@
-<mxfile host="app.diagrams.net" modified="2023-10-16T16:41:39.497Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" version="22.0.4" etag="MGWb6a_iGjQR2djzbE1u" type="github">
+<mxfile host="app.diagrams.net" modified="2023-10-16T16:54:03.922Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="5d6tPm5Grk10yWBlayYN" version="22.0.4" type="github">
   <diagram name="Page-1" id="BgFSwOblOgqALhgSWYDn">
-    <mxGraphModel>
+    <mxGraphModel dx="1060" dy="543" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ppRKxcawpZ6yUMjm3mUm-1" target="ppRKxcawpZ6yUMjm3mUm-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ppRKxcawpZ6yUMjm3mUm-1" target="ppRKxcawpZ6yUMjm3mUm-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-1" value="Ticketing Dashboard" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ppRKxcawpZ6yUMjm3mUm-2" target="ppRKxcawpZ6yUMjm3mUm-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-23" value="function gets all the open tickets from the db&amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ppRKxcawpZ6yUMjm3mUm-22">
+          <mxGeometry x="-0.3" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-2" value="view all tickets" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ppRKxcawpZ6yUMjm3mUm-4" target="ppRKxcawpZ6yUMjm3mUm-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-4" value="create new ticket" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ppRKxcawpZ6yUMjm3mUm-6" target="ppRKxcawpZ6yUMjm3mUm-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-10" value="javascript onClick function for submit button" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ppRKxcawpZ6yUMjm3mUm-9">
+          <mxGeometry x="-0.0857" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-6" value="opens the create ticket page" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-13" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ppRKxcawpZ6yUMjm3mUm-8" target="ppRKxcawpZ6yUMjm3mUm-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ppRKxcawpZ6yUMjm3mUm-8" target="ppRKxcawpZ6yUMjm3mUm-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-8" value="Are all the values valid?" style="rhombus;whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="450" y="510" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ppRKxcawpZ6yUMjm3mUm-12" target="ppRKxcawpZ6yUMjm3mUm-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-12" value="generate a random incident ID" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ppRKxcawpZ6yUMjm3mUm-14" target="ppRKxcawpZ6yUMjm3mUm-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="190" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="340" y="430" />
+              <mxPoint x="340" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-14" value="Display the error to enter the correct value" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="ppRKxcawpZ6yUMjm3mUm-17" target="ppRKxcawpZ6yUMjm3mUm-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="650" y="800" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="780" y="690" />
+              <mxPoint x="780" y="125" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-17" value="add the ticket details to DB" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="660" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ppRKxcawpZ6yUMjm3mUm-21" target="ppRKxcawpZ6yUMjm3mUm-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-21" value="display all the tickets" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="390" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ppRKxcawpZ6yUMjm3mUm-24" value="" style="ellipse;shape=doubleEllipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#000000;gradientColor=none;fillStyle=solid;" vertex="1" parent="1">
+          <mxGeometry x="105" y="520" width="50" height="50" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
