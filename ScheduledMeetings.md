@@ -23,3 +23,8 @@
 - Wednesday 7:00pm
 - Thursday 2:00pm
 - Saturday 8:00pm
+
+## Week 7
+- Tuesday 11:00am
+- Thursday 12:00pm
+- Saturday 4:00pm
