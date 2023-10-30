@@ -28,3 +28,11 @@
 - Tuesday 11:00am
 - Thursday 12:00pm
 - Saturday 4:00pm
+
+## Week 8
+**NO MEETINGS - STUDY WEEK**
+
+## Week 9
+- Wednesday 9:00pm
+- Friday 9:00pm
+- Saturday 9:00pm
