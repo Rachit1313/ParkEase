@@ -36,3 +36,8 @@
 - Wednesday 9:00pm
 - Friday 9:00pm
 - Saturday 9:00pm
+
+## Week 10
+- Monday 5:00pm
+- Wednesday 9:00pm
+- Friday 9:00pm
