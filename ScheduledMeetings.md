@@ -41,3 +41,8 @@
 - Monday 5:00pm
 - Wednesday 9:00pm
 - Friday 9:00pm
+
+## Week 11
+-  wednesday 5:00pm
+-  Friday 12:00pm
+-  Saturday 8:00pm
