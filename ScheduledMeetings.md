@@ -48,6 +48,6 @@
 -  Saturday 8:00pm
 
 ## Week 12
-- Monday 8:00pm
+- Thursday 11:00pm
 - Friday 4:00pm
 - Saturday 4:00pm
