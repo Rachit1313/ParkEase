@@ -51,3 +51,8 @@
 - Thursday 11:00pm
 - Friday 4:00pm
 - Saturday 4:00pm
+
+## Week 13
+- Monday 8:00pm
+- Thursday 9:00pm
+- Saturday 9:00pm
