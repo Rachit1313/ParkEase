@@ -1,0 +1,12 @@
+{
+  "name": "parkease",
+  "version": "1.0.0",
+  "description": "A Parking Mangament System with Computer Vision integrated for License plate and card number scanning.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
