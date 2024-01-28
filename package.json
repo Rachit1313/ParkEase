@@ -4,7 +4,8 @@
   "description": "A Parking Mangament System with Computer Vision integrated for License plate and card number scanning.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --config .eslintrc.js \"./src/**/*.js\""  
   },
   "keywords": [],
   "author": "",
