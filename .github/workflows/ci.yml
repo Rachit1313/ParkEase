@@ -17,7 +17,7 @@ on:
 jobs:
   lint:
     # Give your job a name that will show up in the GitHub Actions web UI
-    name: ESLint - Backend
+    name: ESLint
     # We'll run this on a Linux (Ubuntu) VM, since we'll deploy on Linux too.
     runs-on: ubuntu-latest
     # We run these steps one after the other, and if any fail, we stop the process
@@ -34,6 +34,8 @@ jobs:
           node-version: '18'
           # Cache npm dependencies so they don't have to be downloaded next time - https://github.com/actions/setup-node#caching-packages-dependencies
           cache: 'npm'
+          # Specify the path to the directory containing the package-lock.json file
+          cache-dependency-path: backend/package-lock.json
 
       - name: Install node dependencies
         # Use `ci` vs. `install`, see https://docs.npmjs.com/cli/v8/commands/npm-ci
