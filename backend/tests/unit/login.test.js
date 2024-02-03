@@ -49,5 +49,7 @@ describe('loginHandler', () => {
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveProperty('token');
+    expect(res.body.userType).toBe('Customer'); // Check userType
   });
+
 });
