@@ -7,6 +7,11 @@
 
 const request = require('supertest');
 const app = require('../../src/app'); // Assuming your Express app is exported from this file
+const db = require('../../src/database')
+
+afterAll(() => {
+  db.end(); // Close the database connection after all tests have completed
+});
 
 describe('loginHandler', () => {
   it('should return 400 if email or password are missing', async () => {

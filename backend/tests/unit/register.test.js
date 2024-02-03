@@ -7,6 +7,11 @@
 // Date: February 2, 2024
 
 const bcrypt = require('bcryptjs');
+const db = require('../../src/database')
+
+afterAll(() => {
+  db.end(); // Close the database connection after all tests have completed
+});
 
 describe('User Registration', () => {
   it('should hash the password correctly', async () => {
