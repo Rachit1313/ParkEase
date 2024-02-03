@@ -1,4 +1,4 @@
-// File: register.js
+// File: login.js
 // ------------------
 // This file contains the login route implementation for the ParkEase project
 
