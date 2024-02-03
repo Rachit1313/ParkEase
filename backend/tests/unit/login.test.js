@@ -1,3 +1,10 @@
+// File: login.js
+// ------------------
+// This file contains unit test for the login 
+
+// Author: Heavendeep kaur
+// Date: February 2, 2024
+
 const request = require('supertest');
 const app = require('../../src/app'); // Assuming your Express app is exported from this file
 

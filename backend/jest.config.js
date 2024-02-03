@@ -1,3 +1,10 @@
+// File: jest.config.js
+// ------------------
+// This file contains jest configuration 
+
+// Author: Heavendeep kaur
+// Date: February 2, 2024
+
 // jest.config.js
 
 // Get the full path to our env.jest file

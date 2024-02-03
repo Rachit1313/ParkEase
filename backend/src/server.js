@@ -1,3 +1,10 @@
+// File: server.js
+// ------------------
+// This file contains main file to initialize  server and set up application's routes
+
+// Author: Heavendeep kaur
+// Date: February 2, 2024
+
 // src/server.js
 
 // We want to gracefully shutdown our server

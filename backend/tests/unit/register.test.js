@@ -1,3 +1,11 @@
+
+// File: register.js
+// ------------------
+// This file contains the test for the registration
+
+// Author: Heavendeep kaur
+// Date: February 2, 2024
+
 const bcrypt = require('bcryptjs');
 
 describe('User Registration', () => {

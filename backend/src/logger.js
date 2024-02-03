@@ -1,3 +1,10 @@
+// File: logger.js
+// ------------------
+// This is the logger file for debugging
+
+// Author: Heavendeep kaur
+// Date: February 2, 2024
+
 // src/logger.js
 
 // Use `info` as our standard log level if not specified
