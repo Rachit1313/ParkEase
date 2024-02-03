@@ -1,4 +1,9 @@
 // src/routes/index.js
+// File: index.js
+// ------------------
+
+// Author: Rachit Chawla
+// Date: February 2, 2024
 
 const express = require('express');
 

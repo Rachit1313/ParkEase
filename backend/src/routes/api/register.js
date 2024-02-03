@@ -1,3 +1,10 @@
+// File: register.js
+// ------------------
+// This file contains the registration route implementation for the ParkEase project
+
+// Author: Rachit Chawla
+// Date: February 2, 2024
+
 const bcrypt = require('bcryptjs');
 const db = require('../../database'); 
 const logger = require('../../logger');

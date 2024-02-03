@@ -1,3 +1,10 @@
+// File: database.js
+// ------------------
+// This file contains the database connection details for the ParkEase project
+
+// Author: Rachit Chawla
+// Date: February 2, 2024
+
 require('dotenv').config();
 const mysql = require('mysql');
 const logger = require('./logger');

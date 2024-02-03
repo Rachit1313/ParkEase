@@ -1,4 +1,9 @@
-# .github/workflows/ci.yml
+# File: ci.yml
+# ------------------
+# This file contains the CI Workflow for the ParkEase project.
+
+# Author: Rachit Chawla
+# Date: February 2, 2024
 
 # Continuous Integration (CI) Workflow
 name: ci
