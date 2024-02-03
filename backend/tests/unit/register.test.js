@@ -1,5 +1,5 @@
 
-// File: register.js
+// File: register.test.js
 // ------------------
 // This file contains the test for the registration
 

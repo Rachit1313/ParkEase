@@ -1,4 +1,4 @@
-// File: login.js
+// File: login.test.js
 // ------------------
 // This file contains unit test for the login 
 
