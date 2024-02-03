@@ -38,12 +38,12 @@ try{
     }
 
     // Sign the JWT with the user's ID
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user.UserID }, process.env.JWT_SECRET, {
       expiresIn: '1h'
     });
 
-    // Send the token to the client
-    res.status(200).json({ token });
+    // Send the token and UserType to the client
+    res.status(200).json({ token, userType: user.UserType });
 })}
 catch(err){
     logger.error(err)

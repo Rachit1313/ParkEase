@@ -1,6 +1,8 @@
+// File: app.js
+// -----------------
 
-
-
+// Author: Rachit Chawla
+// Date: February 2, 2024
 
 const express = require('express');
 const cors = require('cors');
