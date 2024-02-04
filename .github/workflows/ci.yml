@@ -50,3 +50,32 @@ jobs:
       - name: Run ESLint
         run: npm run lint
         working-directory: backend # Set the working directory to the backend folder
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+  
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install node dependencies
+        run: npm ci
+        working-directory: backend
+
+      - name: Run unit tests
+        env: 
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          JWT_SECRET: ${{secrets.JWT_SECRET}}
+          
+        run: npm test
+        working-directory: backend
+  
