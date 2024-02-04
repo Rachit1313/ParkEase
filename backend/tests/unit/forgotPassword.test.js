@@ -9,7 +9,7 @@
 // Import the necessary modules
 const forgotPassword = require('../../src/routes/api/forgotPassword');
 const db = require('../../src/database');
-const nodemailer = require('nodemailer');
+
 afterAll(() => {
   db.end(); // Close the database connection after all tests have completed
 });
@@ -17,16 +17,6 @@ afterAll(() => {
 // Import dotenv and configure it
 require('dotenv').config();
 
-// Define a separate test transporter
-const testTransporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.TEST_EMAIL_USER,
-    pass: process.env.TEST_EMAIL_PASSWORD
-  }
-});
 
 // Define a test user email
 const testUserEmail = 'test@example.com';
