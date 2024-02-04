@@ -67,8 +67,13 @@ jobs:
       - name: Install node dependencies
         run: npm ci
         working-directory: backend
-        
+
       - name: Run unit tests
+        env: 
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
         run: npm test
         working-directory: backend
   
