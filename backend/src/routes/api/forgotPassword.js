@@ -3,7 +3,7 @@
 // This file contains the forgot password route implementation for the ParkEase project
 
 // Author: Rachit Chawla
-// Date: February 2, 2024
+// Date: February 4, 2024
 
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
