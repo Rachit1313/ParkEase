@@ -33,7 +33,6 @@ The objective of the project is to develop an Online parking system which would 
 
 ### For Frontend
 - navigate to backend ```cd frontend ```
-- Navigate to the folder: ```cd backend```
 - Install dependencies: ```npm install```
 - Configure API URL in .env file
 - Run the application: npm start 
