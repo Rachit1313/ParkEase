@@ -22,7 +22,7 @@ The objective of the project is to develop an Online parking system which would 
 - Implementing efficient and secure payment systems, addressing regulatory and security concerns.
 
 ## Installation
-- Clone the repository: git clone [https://github.com/your/repository.git](https://github.com/Rachit1313/ParkEase.git)
+- Clone the repository: git clone [[https://github.com/your/repository.git](https://github.com/Rachit1313/ParkEase.git)](https://github.com/Rachit1313/ParkEase.git)
 - Navigate to the folder directory:
   ```bash
   cd parkEase
