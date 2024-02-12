@@ -23,7 +23,10 @@ The objective of the project is to develop an Online parking system which would 
 
 ## Installation
 - Clone the repository: git clone [https://github.com/your/repository.git](https://github.com/Rachit1313/ParkEase.git)
-- Navigate to the folder directory: ```cd parkEase```
+- Navigate to the folder directory:
+  ```bash
+  cd parkEase
+  ```
   
 ### For the backend
 - Navigate to the folder: ```cd backend```
