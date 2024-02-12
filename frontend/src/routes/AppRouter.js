@@ -1,3 +1,7 @@
+/* Author: Ayush Shah
+Subject: PRJ 666ZAA
+Professor Name: Clint Macdonald */
+
 import SignUp from '../components/signup';
 import SignIn from '../components/signin';
 import ForgotPassword from '../components/forgot_password';
