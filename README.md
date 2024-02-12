@@ -28,14 +28,14 @@ The objective of the project is to develop an Online parking system which would 
 ### For the backend
 - Navigate to the folder: ```cd backend```
 - Install dependencies: ```npm install```
-- Configure API URL in .env file
+-  Configure environment variables, including database connection details.
 - Run the application: npm start
 
 ### For Frontend
 - navigate to backend ```cd frontend ```
 - Navigate to the folder: ```cd backend```
 - Install dependencies: ```npm install```
-- Configure environment variables, including database connection details.
+- Configure API URL in .env file
 - Run the application: npm start 
 
 ## Scheduled Team Meetings
