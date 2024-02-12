@@ -1,3 +1,6 @@
+/* Author: Ayush Shah
+Subject: PRJ 666ZAA
+Professor Name: Clint Macdonald */
 // useAuthCheck.js
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
