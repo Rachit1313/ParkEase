@@ -5,7 +5,7 @@ Make your parking life easy!
 
 ## Table of Contents
 - get started
-- [Scheduled Team Meetings](#scheduled-team-meetings)
+- [Scheduled Team Meetings](ScheduledMeetings.md)
 - [UI Mockups](#ui-mockups)
 
 ## Scheduled Team Meetings
