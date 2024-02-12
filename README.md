@@ -23,10 +23,20 @@ The objective of the project is to develop an Online parking system which would 
 
 ## Installation
 - Clone the repository: git clone [https://github.com/your/repository.git](https://github.com/Rachit1313/ParkEase.git)
-- Navigate to the project directory: cd parkEase
-- Install dependencies: npm install
-- Configure environment variables, including database connection details.
+- Navigate to the folder directory: ```cd parkEase```
+  
+### For the backend
+- Navigate to the folder: ```cd backend```
+- Install dependencies: ```npm install```
+- Configure API URL in .env file
 - Run the application: npm start
+
+### For Frontend
+- navigate to backend ```cd frontend ```
+- Navigate to the folder: ```cd backend```
+- Install dependencies: ```npm install```
+- Configure environment variables, including database connection details.
+- Run the application: npm start 
 
 ## Scheduled Team Meetings
 For information about scheduled team meetings, please refer to the [Schedule](ScheduledMeetings.md) file.
