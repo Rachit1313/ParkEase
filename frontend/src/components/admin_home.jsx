@@ -1,3 +1,7 @@
+/* Author: Raghav Malhotra
+Subject: PRJ 666ZAA
+Professor Name: Clint Macdonald */
+
 import { useState, useEffect, useRef } from "react";
 
 export default function Component() {
