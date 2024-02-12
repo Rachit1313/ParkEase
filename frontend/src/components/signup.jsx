@@ -6,10 +6,38 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const [fullName, setFullName] = useState("");
   const navigate = useNavigate();
-  
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const handleTogglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+
   const handleSignUp = async () => {
+
+    if (!email.trim()) {
+      alert("Please enter your email address.");
+      return;
+    }
+
+    if (!phone.trim()) {
+      alert("Please enter your phone number.");
+      return;
+    }
+
+    if (!password.trim()) {
+      alert("Please enter a password.");
+      return;
+    }
+
+    if (password != password2) {
+      alert("Passwords don't match. Please re-enter your password.");
+      return;
+    }
+
+
     try {
       const response = await fetch(process.env.REACT_APP_BACKEND_URL + "register", {
         method: "POST",
@@ -34,7 +62,7 @@ const SignUp = () => {
 
   return (
     <div className="flex flex-col h-screen bg-white">
-      
+
       <div className="p-4 flex justify-between items-center bg-white border-b shadow-sm">
         <img src="https://file.rendit.io/n/Sdx696lWt20H3dmB4Qmz.png" alt="Logo" className="h-10" />
         <button className="p-2 rounded-full hover:bg-gray-100">
@@ -86,17 +114,59 @@ const SignUp = () => {
               />
             </div>
 
+
+
+
             <div className="flex items-center bg-gray-200 px-4 py-3 rounded-full">
-              <img src="https://file.rendit.io/n/Ju9AaOy8UtgiWriNceM8.svg" alt="Password Icon" className="h-6 w-6" />
+              <img
+                src="https://file.rendit.io/n/Ju9AaOy8UtgiWriNceM8.svg"
+                alt="Password Icon"
+                className="h-6 w-6"
+              />
               <input
-                type="password"
-                placeholder="Enter your password"
+                type={isPasswordVisible ? "text" : "password"}
+                placeholder={"Enter your password"}
                 className="bg-transparent outline-none w-full ml-4 placeholder-gray-500"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <img src="https://file.rendit.io/n/ikHzgSwQg6BhPIGl8uJj.svg" alt="View Password Icon" className="h-6 w-6" />
+              <img
+                src={
+                  isPasswordVisible
+                    ? "https://file.rendit.io/n/ikHzgSwQg6BhPIGl8uJj.svg"
+                    : "https://file.rendit.io/n/ikHzgSwQg6BhPIGl8uJj.svg" 
+                }
+                alt="View Password Icon"
+                className="h-6 w-6 cursor-pointer"
+                onClick={handleTogglePasswordVisibility}
+              />
             </div>
+
+            <div className="flex items-center bg-gray-200 px-4 py-3 rounded-full">
+              <img
+                src="https://file.rendit.io/n/Ju9AaOy8UtgiWriNceM8.svg"
+                alt="Password Icon"
+                className="h-6 w-6"
+              />
+              <input
+                type={isPasswordVisible ? "text" : "password"}
+                placeholder={"Enter your password"}
+                className="bg-transparent outline-none w-full ml-4 placeholder-gray-500"
+                value={password2}
+                onChange={(e) => setPassword2(e.target.value)}
+              />
+              <img
+                src={
+                  isPasswordVisible
+                    ? "https://file.rendit.io/n/ikHzgSwQg6BhPIGl8uJj.svg"
+                    : "https://file.rendit.io/n/ikHzgSwQg6BhPIGl8uJj.svg" 
+                }
+                alt="View Password Icon"
+                className="h-6 w-6 cursor-pointer"
+                onClick={handleTogglePasswordVisibility}
+              />
+            </div>
+
           </div>
           <button
             onClick={handleSignUp}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import Cookies from 'js-cookie';
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -20,10 +20,17 @@ const SignIn = () => {
 
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("token", data.token);
         localStorage.setItem("userType", data.userType);
+        Cookies.set('token', data.token, { expires: 1 }); // Expires after 1 day
+      
         alert("Login Successfull")
-        navigate("/");
+        if (data.userType === "Customer") {
+          navigate("/home");
+        } else if (data.userType === "Admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       } else {
         alert("Login failed");
       }
@@ -101,7 +108,7 @@ const SignIn = () => {
           </p>
           <div className="text-sm text-center mt-4">
             Don't have an account?{" "}
-            <Link to="/register" className="font-bold text-blue-500 hover:underline">
+            <Link to="/" className="font-bold text-blue-500 hover:underline">
               Register
             </Link>
           </div>
