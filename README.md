@@ -11,8 +11,8 @@ The objective of the project is to develop an Online parking system which would 
 - Features
 - installation
 - [Scheduled Team Meetings](ScheduledMeetings.md)
-- [UI Mockups](#ui-mockups)
-- Usage
+- [UI Mockups](https://www.figma.com/file/B7UZXwc2fCfZRZ6FwDW1en/ParkEase?type=design&node-id=0-1&mode=design&t=MxIkHSHE8DiDj7H7-0)
+
 
 ## Features
 - Implementing computer science, image processing, and possibly machine learning for parking space recognition and analysis.
