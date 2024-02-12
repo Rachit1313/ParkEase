@@ -13,10 +13,10 @@ const express = require('express');
 const router = express.Router();
 
 
-// Define our first route, which will be: POST /login
 router.post('/login', require('./login'));
 router.post('/register',require('./register'))
 router.post('/forgotPassword', require('./forgotPassword'));
+router.get('/booking', require('./getParkingSpots'));
 // Other routes will go here later on...
 
 module.exports = router;
