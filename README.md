@@ -29,16 +29,34 @@ The objective of the project is to develop an Online parking system which would 
   ```
   
 ### For the backend
-- Navigate to the folder: ```cd backend```
-- Install dependencies: ```npm install```
+- Navigate to the folder:
+  ```bash
+  cd backend
+  ```
+- Install dependencies:
+  ``` bash
+  npm install
+  ```
 -  Configure environment variables, including database connection details.
-- Run the application: npm start
+- Run the application:
+- ``` bash
+  npm start
+  ```
 
 ### For Frontend
-- navigate to backend ```cd frontend ```
-- Install dependencies: ```npm install```
+- navigate to backend
+  ``` bash
+   cd frontend
+   ```
+- Install dependencies:
+ ``` bash
+   npm install
+```
 - Configure API URL in .env file
-- Run the application: npm start 
+- Run the application:
+  ``` bash
+  npm start
+  ``` 
 
 ## Scheduled Team Meetings
 For information about scheduled team meetings, please refer to the [Schedule](ScheduledMeetings.md) file.
