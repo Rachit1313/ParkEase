@@ -1,4 +1,9 @@
-// Assuming this function is saved in a file named `getBookingHistory.js`
+// File: getBookingHistory.js
+// ------------------
+// This file contains the booking history route implementation for the ParkEase project
+
+// Author: Rachit Chawla
+// Date: February 19, 2024
 const db = require('../../database');
 const logger = require('../../logger');
 
