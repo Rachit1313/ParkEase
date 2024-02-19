@@ -19,6 +19,7 @@ router.post('/forgotPassword', require('./forgotPassword'));
 router.get('/available-spots', require('./getParkingSpots'));
 router.get('/booking-history/:customerId', require('./getBookingHistory'));
 router.get('/garageList', require('./getGarages') );
+router.post('/create-booking', require('./createBooking'));
 // Other routes will go here later on...
 
 module.exports = router;
