@@ -1,18 +1,15 @@
 # ParkEase
 
-Welcome to ParkEase, a Parking Management System with integrated Computer Vision capabilities for license plate and card number scanning. 
-Make your parking life easy!
+Welcome to ParkEase, a Parking Management System with integrated Computer Vision capabilities for license plate and card number scanning. Make your parking life easy!
 
 ## About the project:
 The objective of the project is to develop an Online parking system which would leverage the technology of the computer vision technology and provide real-time parking availability information, automated access control, and easy payment alternatives to solve the inefficiencies and difficulties of conventional parking management. Due to user-friendly interface and powerful capabilities, it delivers a convenient parking experience for both operators and consumers.
 
-
 ## Table of Contents
 - Features
-- installation
+- Installation
 - [Scheduled Team Meetings](ScheduledMeetings.md)
 - [UI Mockups](https://www.figma.com/file/B7UZXwc2fCfZRZ6FwDW1en/ParkEase?type=design&node-id=0-1&mode=design&t=MxIkHSHE8DiDj7H7-0)
-
 
 ## Features
 - Implementing computer science, image processing, and possibly machine learning for parking space recognition and analysis.
@@ -22,39 +19,42 @@ The objective of the project is to develop an Online parking system which would 
 - Implementing efficient and secure payment systems, addressing regulatory and security concerns.
 
 ## Installation
-- Clone the repository: git clone https://github.com/Rachit1313/ParkEase.git
+- Clone the repository:
+  ```bash
+  git clone https://github.com/Rachit1313/ParkEase.git
+  ```
 - Navigate to the folder directory:
   ```bash
   cd parkEase
   ```
-  
+
 ### For the backend
 - Navigate to the folder:
   ```bash
   cd backend
   ```
 - Install dependencies:
-  ``` bash
+  ```bash
   npm install
   ```
--  Configure environment variables, including database connection details.
+- Configure environment variables, including database connection details.
 - Run the application:
-- ``` bash
+  ```bash
   npm start
   ```
 
 ### For Frontend
-- navigate to backend
-  ``` bash
-   cd frontend
-   ```
+- Navigate to the folder:
+  ```bash
+  cd frontend
+  ```
 - Install dependencies:
- ``` bash
-   npm install
-```
+  ```bash
+  npm install
+  ```
 - Configure API URL in .env file
 - Run the application:
-  ``` bash
+  ```bash
   npm start
   ``` 
 
