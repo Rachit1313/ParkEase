@@ -6,8 +6,8 @@ Welcome to ParkEase, a Parking Management System with integrated Computer Vision
 The objective of the project is to develop an Online parking system which would leverage the technology of the computer vision technology and provide real-time parking availability information, automated access control, and easy payment alternatives to solve the inefficiencies and difficulties of conventional parking management. Due to user-friendly interface and powerful capabilities, it delivers a convenient parking experience for both operators and consumers.
 
 ## Table of Contents
-- Features
-- Installation
+- [Features](#features)
+- [Installation](#installation)
 - [Scheduled Team Meetings](ScheduledMeetings.md)
 - [UI Mockups](https://www.figma.com/file/B7UZXwc2fCfZRZ6FwDW1en/ParkEase?type=design&node-id=0-1&mode=design&t=MxIkHSHE8DiDj7H7-0)
 
