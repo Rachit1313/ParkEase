@@ -20,6 +20,7 @@ router.get('/available-spots', require('./getParkingSpots'));
 router.get('/booking-history/:customerId', require('./getBookingHistory'));
 router.get('/garageList', require('./getGarages') );
 router.post('/create-booking', require('./createBooking'));
+router.post('/process-payment', require('./processPayment'));
 // Other routes will go here later on...
 
 module.exports = router;
