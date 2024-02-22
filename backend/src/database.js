@@ -9,20 +9,18 @@ require('dotenv').config();
 const mysql = require('mysql');
 const logger = require('./logger');
 
-// MySQL connection
-const db = mysql.createConnection({
+// Create a connection pool instead of a single connection
+const pool = mysql.createPool({
+  connectionLimit: 10, // Maximum number of connections in the pool
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE
 });
 
-db.connect((err) => {
-  if (err) {
-    logger.error('Error connecting to MySQL', err);
-    throw err;
-  }
-  logger.info('Connected to MySQL');
+pool.on('connection', (connection) => {
+  logger.info('MySQL pool connected: threadId ' + connection.threadId);
 });
 
-module.exports = db;
+// Export the pool
+module.exports = pool;
