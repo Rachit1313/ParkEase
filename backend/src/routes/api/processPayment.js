@@ -3,10 +3,43 @@ const db = require('../../database');
 const logger = require('../../logger');
 
 const router = express.Router();
+// Helper functions for card details validation
+function isValidCardNumber(number) {
+  return /^\d{16}$/.test(number);
+}
 
+function isValidCvv(cvv) {
+  return /^\d{3}$/.test(cvv);
+}
+
+function isValidExpirationDate(month, year) {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1; // getMonth() is zero-based
+  const expYear = parseInt(year, 10);
+  const expMonth = parseInt(month, 10);
+
+  if (expYear < currentYear || (expYear === currentYear && expMonth < currentMonth)) {
+    return false;
+  }
+  return true;
+}
 // API to process payment
 router.post('/process-payment', async (req, res) => {
-  const { customerId, bookingId, amount } = req.body;
+  const { customerId, bookingId, amount, cardNumber, cvv, expMonth, expYear } = req.body;
+
+  // Validate card details
+  if (!isValidCardNumber(cardNumber)) {
+    return res.status(400).send('Invalid card number. Card number must be 16 digits.');
+  }
+
+  if (!isValidCvv(cvv)) {
+    return res.status(400).send('Invalid CVV. CVV must be 3 digits.');
+  }
+
+  if (!isValidExpirationDate(expMonth, expYear)) {
+    return res.status(400).send('Invalid expiration date. Date must not be in the past.');
+  }
 
   // Add validation for customerId, bookingId, and amount as needed
 
