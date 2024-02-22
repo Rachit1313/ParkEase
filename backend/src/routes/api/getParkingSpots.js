@@ -8,28 +8,44 @@
 const db = require('../../database');
 const logger = require('../../logger');
 
-module.exports = async (req, res) => {
+module.exports =  async (req, res) => {
+  const { garageId, checkInTime, checkOutTime } = req.query;
+
+  // Step 1: Validate input
+  if (!garageId || !checkInTime || !checkOutTime) {
+    return res.status(400).send('Garage ID, check-in time, and check-out time are required');
+  }
+
   try {
-    // SQL query to select parking spots that are currently vacant
-    const sql = "SELECT * FROM ParkingSpot WHERE Status = 'Vacant'";
+    // Step 2: Query for available spots
+    const availableSpotsSql = `
+      SELECT s.SpotID FROM ParkingSpot s
+      WHERE s.GarageID = ? AND s.SpotID NOT IN (
+        SELECT b.SpotID FROM Booking b
+        WHERE b.GarageID = ? AND (
+          (b.CheckInTime < ? AND b.CheckOutTime > ?) OR
+          (b.CheckInTime < ? AND b.CheckOutTime > ?) OR
+          (b.CheckInTime >= ? AND b.CheckOutTime <= ?)
+        )
+      )
+    `;
 
-    db.query(sql, async (err, results) => {
-      if (err) {
-        logger.error('Error fetching available parking spots:', err);
-        return res.status(500).send('Error fetching available parking spots');
-      }
+    const [availableSpots] = await db.promise().query(availableSpotsSql, [
+      garageId,
+      garageId,
+      checkOutTime, checkInTime,  // Covers bookings that start before and end after the requested period
+      checkInTime, checkOutTime,  // Covers bookings that start and end within the requested period
+      checkInTime, checkOutTime   // Covers bookings that encompass the requested period
+    ]);
 
-      // If no available spots are found
-      if (results.length === 0) {
-        return res.status(404).send('No available parking spots found');
-      }
-
-      logger.info(results);
-      // Send the list of available parking spots to the client
-      res.status(200).json(results);
-    });
+    // Step 3: Respond with available spots
+    if (availableSpots.length > 0) {
+      res.status(200).json({ availableSpots });
+    } else {
+      res.status(404).send('No available spots found for the selected time period');
+    }
   } catch (err) {
-    logger.error(err);
-    res.status(500).send('Server error');
+    logger.error('Error fetching available spots: ' + err);
+    return res.status(500).send('Error fetching available spots');
   }
 };
