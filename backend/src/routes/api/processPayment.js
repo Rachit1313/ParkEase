@@ -3,6 +3,7 @@ const db = require('../../database');
 const logger = require('../../logger');
 
 const router = express.Router();
+
 // Helper functions for card details validation
 function isValidCardNumber(number) {
   return /^\d{16}$/.test(number);
@@ -24,8 +25,9 @@ function isValidExpirationDate(month, year) {
   }
   return true;
 }
+
 // API to process payment
-router.post('/process-payment', async (req, res) => {
+router.post('/process-payment', (req, res) => {
   const { customerId, bookingId, amount, cardNumber, cvv, expMonth, expYear } = req.body;
 
   // Validate card details
@@ -41,38 +43,40 @@ router.post('/process-payment', async (req, res) => {
     return res.status(400).send('Invalid expiration date. Date must not be in the past.');
   }
 
-  // Add validation for customerId, bookingId, and amount as needed
-
-  try {
-    // Simulate payment processing
-    // In a real application, you would integrate with a payment gateway here
-    await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate delay
-
+  // Simulate payment processing delay
+  setTimeout(() => {
     // Insert the transaction into the Transaction table
-    // Note: TransactionID is not included in the column list since it's auto-incremented
     const insertTransactionSql = `
       INSERT INTO Transaction (CustomerID, TransactionTime, Amount, TransactionType)
       VALUES (?, NOW(), ?, 'FakePayment')
     `;
 
-    const [result] = await db.promise().query(insertTransactionSql, [customerId, amount]);
-    const transactionRecordId = result.insertId; // This is the auto-incremented TransactionID
+    db.query(insertTransactionSql, [customerId, amount], (err, result) => {
+      if (err) {
+        logger.error('Error processing payment: ', err);
+        return res.status(500).send('Error processing payment');
+      }
 
-    // Update the Booking table with the TransactionID
-    const updateBookingSql = `
-      UPDATE Booking
-      SET TransactionID = ?, PaymentStatus = 'Paid'
-      WHERE BookingID = ?
-    `;
+      const transactionRecordId = result.insertId; // Auto-incremented TransactionID
 
-    await db.promise().query(updateBookingSql, [transactionRecordId, bookingId]);
+      // Update the Booking table with the TransactionID
+      const updateBookingSql = `
+        UPDATE Booking
+        SET TransactionID = ?, PaymentStatus = 'Paid', PaymentAmount = ?
+        WHERE BookingID = ?
+      `;
 
-    // Return the auto-incremented TransactionID and a success message
-    res.status(200).json({ message: 'Payment processed successfully', transactionId: transactionRecordId });
-  } catch (err) {
-    logger.error('Error processing payment: ' + err);
-    return res.status(500).send('Error processing payment');
-  }
+      db.query(updateBookingSql, [transactionRecordId, amount, bookingId], (err) => {
+        if (err) {
+          logger.error('Error updating booking: ', err);
+          return res.status(500).send('Error updating booking');
+        }
+
+        // Return the auto-incremented TransactionID and a success message
+        res.status(200).json({ message: 'Payment processed successfully', transactionId: transactionRecordId });
+      });
+    });
+  }, 2000); // Simulate 2 seconds delay for the fake payment processing
 });
 
 module.exports = router;
