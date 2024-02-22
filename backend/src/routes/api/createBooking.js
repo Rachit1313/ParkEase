@@ -2,7 +2,7 @@ const db = require('../../database');
 const logger = require('../../logger');
 
 // API to create a booking
-module.exports = async (req, res) => {
+module.exports = (req, res) => {
   const { customerId, garageId, spotId, checkInTime, checkOutTime } = req.body;
 
   // Step 1: Validate input
@@ -10,10 +10,13 @@ module.exports = async (req, res) => {
     return res.status(400).send('All fields are required');
   }
 
-  try {
-    // Fetch the fare rate for the selected parking spot
-    const fareQuery = 'SELECT HourlyRate FROM ParkingSpot WHERE SpotID = ?';
-    const [fareResults] = await db.promise().query(fareQuery, [spotId]);
+  // Fetch the fare rate for the selected parking spot
+  const fareQuery = 'SELECT HourlyRate FROM ParkingSpot WHERE SpotID = ?';
+  db.query(fareQuery, [spotId], (err, fareResults) => {
+    if (err) {
+      logger.error('Error fetching fare rate: ', err);
+      return res.status(500).send('Error fetching fare rate');
+    }
 
     if (fareResults.length === 0) {
       return res.status(404).send('Parking spot not found');
@@ -29,13 +32,15 @@ module.exports = async (req, res) => {
       VALUES (?, ?, ?, NOW(), ?, ?, 'Pending')
     `;
 
-    const [bookingResult] = await db.promise().query(createBookingSql, [customerId, garageId, spotId, checkInTime, checkOutTime]);
-    const bookingId = bookingResult.insertId;
+    db.query(createBookingSql, [customerId, garageId, spotId, checkInTime, checkOutTime], (err, bookingResult) => {
+      if (err) {
+        logger.error('Error creating booking: ', err);
+        return res.status(500).send('Error creating booking');
+      }
 
-    // Return the booking ID and total fare
-    res.status(200).json({ message: 'Booking created. Proceed to payment.', bookingId, totalFare });
-  } catch (err) {
-    logger.error('Error creating booking: ' + err);
-    return res.status(500).send('Error creating booking');
-  }
+      const bookingId = bookingResult.insertId;
+      // Return the booking ID and total fare
+      res.status(200).json({ message: 'Booking created. Proceed to payment.', bookingId, totalFare });
+    });
+  });
 };
