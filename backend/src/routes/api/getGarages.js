@@ -1,3 +1,11 @@
+
+// File: getGarages.js
+// ------------------
+// This file contains the getGarages route implementation for the ParkEase project
+
+// Author: Heavendeep kaur
+// Date: February 22, 2024
+
 const db = require('../../database');
 const logger = require('../../logger');
 
