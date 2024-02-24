@@ -1,4 +1,5 @@
 # ParkEase
+<img src="https://github.com/HeavenMunjal/Assignment-2/raw/main/fdbc91dcc7a1410b342b2e2173e72b49.gif" alt="GIF" width="500">
 
 Welcome to ParkEase, a Parking Management System with integrated Computer Vision capabilities for license plate and card number scanning. Make your parking life easy!
 
