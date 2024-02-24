@@ -12,10 +12,10 @@ const logger = require('../../logger');
 
 // API to add a new vehicle related to a customer
 router.post('/addVehicle', (req, res) => {
-    const { PlateNumber, CustomerID, RegistrationDate } = req.body;
+    const { plateNumber,customerID, registrationDate } = req.body;
 
     // Step 1: Validate input
-    if (!PlateNumber || !CustomerID || !RegistrationDate) {
+    if (!plateNumber || !customerID || !registrationDate) {
         return res.status(400).json({ error: 'All fields are required' });
     }
 
@@ -25,7 +25,7 @@ router.post('/addVehicle', (req, res) => {
         VALUES (?, ?, ?)
     `;
 
-    db.query(addVehicleQuery, [PlateNumber, CustomerID, RegistrationDate], (err) => {
+    db.query(addVehicleQuery, [plateNumber, customerID, registrationDate], (err) => {
         if (err) {
             logger.error('Error adding vehicle: ', err);
             return res.status(500).json({ error: 'Error adding vehicle' });
