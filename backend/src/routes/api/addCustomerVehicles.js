@@ -25,7 +25,7 @@ router.post('/addVehicle', (req, res) => {
         VALUES (?, ?, ?)
     `;
 
-    db.query(addVehicleQuery, [PlateNumber, CustomerID, RegistrationDate], (err, result) => {
+    db.query(addVehicleQuery, [PlateNumber, CustomerID, RegistrationDate], (err) => {
         if (err) {
             logger.error('Error adding vehicle: ', err);
             return res.status(500).json({ error: 'Error adding vehicle' });
