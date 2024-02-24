@@ -21,6 +21,8 @@ router.get('/booking-history/:customerId', require('./getBookingHistory'));
 router.get('/garageList', require('./getGarages') );
 router.post('/create-booking', require('./createBooking'));
 router.post('/process-payment', require('./processPayment'));
+router.post('/add-vehicles', require('./addCustomerVehicles'));
+
 // Other routes will go here later on...
 
 module.exports = router;
