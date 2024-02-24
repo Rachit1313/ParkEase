@@ -1,5 +1,10 @@
 
+// File: createBooking.js
+// ------------------
+// This file contains the booking creation route implementation for the ParkEase project
 
+// Author: Rachit Chawla
+// Date: February 23, 2024
 
 const db = require('../../database');
 const logger = require('../../logger');
