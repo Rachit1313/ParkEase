@@ -1,6 +1,49 @@
+/* Author: Raghav Malhotra
+Subject: PRJ 666ZAA
+Professor Name: Clint Macdonald */
+
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Component() {
+  
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
+  const handleResetPassword = async () => {
+    
+    if (!email.trim()) {
+      alert("Please enter a valid email address");
+      return;
+    }
+  
+    // Add a email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address");
+      return;
+    }
+    
+    try {
+      const response = await fetch(process.env.REACT_APP_BACKEND_URL + "forgotPassword", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        alert("New password sent to your email. Please sign-in again.");
+        navigate("/signin");
+      } else {
+        alert("Failed to reset password");
+      }
+    } catch (error) {
+      console.error("Error during password reset:", error);
+    }
+  };
+
   return (
     <div className="flex flex-col h-screen bg-white">
     <div className="p-4 flex justify-between items-center bg-white border-b shadow-sm">
@@ -41,9 +84,13 @@ export default function Component() {
               type="email"
               placeholder="Enter your registered email"
               className="bg-transparent w-full focus:outline-none text-sm text-gray-600 placeholder-gray-400"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <button className="w-full bg-blue-600 text-white font-bold py-4 rounded-lg hover:bg-blue-700 transition-colors mb-2">
+          <button 
+           onClick={handleResetPassword}
+           className="w-full bg-blue-600 text-white font-bold py-4 rounded-lg hover:bg-blue-700 transition-colors mb-2">
             Reset password
           </button>
           <a

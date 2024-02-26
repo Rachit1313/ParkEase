@@ -5,6 +5,7 @@ Professor Name: Clint Macdonald */
 import { useState, useEffect, useRef } from "react";
 import { faFacebookF, faTwitter, faInstagram, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function FeatureSection({ title, description, imgSrc }) {
   return (
@@ -18,6 +19,141 @@ function FeatureSection({ title, description, imgSrc }) {
 
 
 export default function Component() {
+
+  const [garages, setGarages] = useState([]);
+  const [checkInDate, setCheckInDate] = useState('');
+  const [checkInTime, setCheckInTime] = useState('');
+  const [checkOutDate, setCheckOutDate] = useState('');
+  const [checkOutTime, setCheckOutTime] = useState('');
+  const [availableSpots, setAvailableSpots] = useState([]);
+  const [selectedGarageId, setSelectedGarageId] = useState(null);
+  const [selectedSpot, setSelectedSpot] = useState(null);
+  const navigate = useNavigate();
+
+  // Update the selected spot when the user selects a spot from the dropdown
+  const handleSpotChange = (event) => {
+    const spotId = event.target.value;
+    const selectedSpotInfo = availableSpots.find((spot) => spot.SpotID == spotId);
+    setSelectedSpot(selectedSpotInfo);
+  };
+
+  const formatDateTime = (date, time) => {
+    return new Date(`${date}T${time}:00`).toISOString();
+  };
+
+  useEffect(() => {
+    if (selectedGarageId && checkInDate && checkInTime && checkOutDate && checkOutTime) {
+      // If not null, proceed to display spots
+      displaySpots();
+    }
+  }, [selectedGarageId, checkInDate, checkInTime, checkOutDate, checkOutTime]);
+
+  const handleGarageSelection = (event) => {
+    const garageId = event.target.value;
+    setSelectedGarageId(garageId);
+  };
+
+  useEffect(() => {
+    // Fetch garage list from the backend
+    const fetchGarages = async () => {
+      try {
+        const response = await fetch(process.env.REACT_APP_BACKEND_URL + "garageList");
+        if (response.ok) {
+          const data = await response.json();
+          setGarages(data);
+        } else {
+          alert("Failed to fetch garages");
+        }
+      } catch (error) {
+        alert("Error during garage fetch:", error);
+      }
+    };
+
+    fetchGarages();
+  }, []);
+
+  const displaySpots = async() => {
+    // Format check-in and check-out times
+    const formattedCheckInTime = formatDateTime(checkInDate, checkInTime);
+    const formattedCheckOutTime = formatDateTime(checkOutDate, checkOutTime);
+
+    try {
+      // Make API request to get available spots
+      const response = await fetch(process.env.REACT_APP_BACKEND_URL + "available-spots", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          garageId: selectedGarageId,  // Set your selected garage ID here
+          checkInTime: formattedCheckInTime,
+          checkOutTime: formattedCheckOutTime,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setAvailableSpots(data.availableSpots);
+      } else {
+        alert("Failed to fetch available spots");
+      }
+    } catch (error) {
+      alert("Error during available spots fetch:", error);
+    }
+  }
+
+  const handleBookNow = async () => {
+    // Check if the user is sure to proceed to payment
+    const proceedToPayment = window.confirm("Are you sure you want to proceed to payment?");
+  
+    if (proceedToPayment) {
+      const storedCustomerId = localStorage.getItem("customerId");
+      const formattedCheckInTime = formatDateTime(checkInDate, checkInTime);
+      const formattedCheckOutTime = formatDateTime(checkOutDate, checkOutTime);
+      
+      try {
+        // Make API request to create a new booking
+        const createBookingResponse = await fetch(process.env.REACT_APP_BACKEND_URL + "create-booking", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            customerId: storedCustomerId,
+            garageId: selectedGarageId,
+            spotId: selectedSpot.SpotID,
+            checkInTime: formattedCheckInTime,
+            checkOutTime: formattedCheckOutTime,
+          }),
+        });
+  
+        if (createBookingResponse.ok) {
+          const bookingData = await createBookingResponse.json();
+  
+          
+
+          // Redirect user to /payment and pass bookingId and totalFare as props
+          navigate("/payment", {
+            state: {
+              bookingId: bookingData.bookingId,
+              totalFare: bookingData.totalFare,
+            },
+          });
+        } else {
+          alert("Failed to create a new booking");
+        }
+      } catch (error) {
+        alert("Error during booking creation:", error);
+      }
+    } else {
+      
+    }
+  };
+  
+  
+
+
+
   return (
     <div className="flex flex-col h-screen bg-white">
       <div className="p-4 flex justify-between items-center bg-white border-b shadow-sm">
@@ -32,9 +168,8 @@ export default function Component() {
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-800"></span>
           </li>
           <li className="mt-2">
-            <Link to="/book">Booking</Link>
+            <Link to="/history">History</Link>
           </li>
-          <li className="mt-2">History</li>
           <li className="mt-2">About Us</li>
           <li className="mt-2">
             <button className="rounded-lg bg-blue-800 text-white px-6 py-1.5 text-lg transition duration-300 ease-in-out hover:bg-blue-900">
@@ -72,6 +207,7 @@ export default function Component() {
               parking with just a few clicks - it's parking made easy for you!"
             </p>
           </div>
+
           <div className="mt-12 w-full max-w-4xl p-6 bg-white rounded-lg shadow-md">
             <div className="flex flex-wrap -mx-3">
               <div className="w-full md:w-1/2 px-3 mb-6">
@@ -80,10 +216,12 @@ export default function Component() {
                   <input
                     type="date"
                     className="bg-gray-800 text-xs font-medium text-white rounded-sm w-full p-2"
+                    onChange={(e) => setCheckInDate(e.target.value)}
                   />
                   <input
                     type="time"
                     className="bg-gray-800 text-xs font-medium text-white rounded-sm w-full p-2 ml-3"
+                    onChange={(e) => setCheckInTime(e.target.value)}
                   />
                 </div>
               </div>
@@ -94,21 +232,73 @@ export default function Component() {
                     <input
                       type="date"
                       className="bg-gray-800 text-xs font-medium text-white rounded-sm w-full p-2"
+                      onChange={(e) => setCheckOutDate(e.target.value)}
                     />
                     <input
                       type="time"
                       className="bg-gray-800 text-xs font-medium text-white rounded-sm w-full p-2 ml-3"
+                      onChange={(e) => setCheckOutTime(e.target.value)}
                     />
                   </div>
                 </div>
-                <button className="bg-[#0044b5] text-white font-bold text-lg rounded-lg p-3 float-right hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300">
-                  Book Now
-                </button>
               </div>
+            </div>
+            <div className="flex mb-6">
+              <div className="w-full md:w-1/2 pr-2">
+                <label className="block text-xs font-bold mb-1">SELECT GARAGE</label>
+                <select
+                  className="bg-gray-800 text-xs font-medium text-white rounded-sm w-full p-2"
+                  onChange={handleGarageSelection}
+                >
+                  {/* Dynamically populate garage options from the backend response */}
+                  {garages.map((garage) => (
+                    <option key={garage.GarageID} value={garage.GarageID}>
+                      {garage.GarageName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="w-full md:w-1/2 pl-2">
+                <label className="block text-xs font-bold mb-1">SELECT SPOTS</label>
+                <select
+                  className="bg-gray-800 text-xs font-medium text-white rounded-sm w-full p-2"
+                  onChange={handleSpotChange}
+                >
+                  {availableSpots.map((spot) => (
+                    <option key={spot.SpotID} value={spot.SpotID}>
+                      {spot.SpotNumber}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="w-full mt-10">
+
+            {selectedSpot ? (
+        <button className="bg-gray-300 text-black font-bold text-lg rounded-lg p-3 ml-3 cursor-not-allowed" style={{ pointerEvents: 'none' }}>
+          <span>Rate: ${selectedSpot.HourlyRate}/hour</span>
+        </button>
+      ) : (
+        <div className="text-gray-500">Please select a parking spot</div>
+      )}
+
+
+
+
+              <button className="bg-[#0044b5] text-white font-bold float-right text-lg rounded-lg p-3 hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300"
+                onClick={handleBookNow}
+              >
+                Book Now
+              </button>
+
+
+
             </div>
           </div>
         </div>
       </div>
+
 
       <div className="bg-white text-gray-700">
         <br /><br />
@@ -135,7 +325,7 @@ export default function Component() {
           </div>
         </div>
 
-        
+
       </div>
       <div className="relative w-full h-[400px]">
         <img
