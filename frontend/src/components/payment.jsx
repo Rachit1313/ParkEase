@@ -1,9 +1,85 @@
+/* Author: Raghav Malhotra
+Subject: PRJ 666ZAA
+Professor Name: Clint Macdonald */
+
 import { useState, useEffect, useRef } from "react";
 import { faFacebookF, faTwitter, faInstagram, faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { useNavigate } from "react-router-dom";
 
 
+export default function Component({ bookingId, totalFare }) {
+  const [cardNumber, setCardNumber] = useState('');
+  const [expDate, setExpDate] = useState('');
+  const [cvv, setCvv] = useState('');
+  const [zipCode, setZipCode] = useState('');
+    const [userDetails, setUserDetails] = useState({
+        email: '',
+        fullName: '',
+        contactNumber: '',
+    });
+    const navigate = useNavigate();
+    
 
-export default function Component() {
+   
+    useEffect(() => {
+        
+        
+        // Retrieve user details from localStorage
+        const customerId = localStorage.getItem('customerId');
+        const email = localStorage.getItem('email');
+        const fullName = localStorage.getItem('fullName');
+        const contactNumber = localStorage.getItem('contactNumber');
+
+        // Set user details in the state
+        setUserDetails({
+            email: email || '',
+            fullName: fullName || '',
+            contactNumber: contactNumber || '',
+        });
+    }, []);
+
+    const handlePurchase = async () => {
+        try {
+          // Validate card details (you may want to add more validation)
+          if (!cardNumber || !expDate || !cvv || !zipCode) {
+            alert('Please fill in all payment details.');
+            return;
+          }
+    
+          // Split the expiration date into month and year
+          const [expMonth, expYear] = expDate.split(' / ');
+    
+          // Make API request to process payment
+          const response = await fetch(process.env.REACT_APP_BACKEND_URL + "process-payment", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              customerId: localStorage.getItem("customerId"),
+              bookingId,
+              amount: totalFare,
+              cardNumber,
+              expMonth,
+              expYear,
+              cvv,
+              zipCode,
+            }),
+          });
+    
+          if (response.ok) {
+            const data = await response.json();
+            alert(data.message); // Show success message
+            navigate('/history')
+          } else {
+            console.error("Failed to process payment");
+          }
+        } catch (error) {
+          console.error("Error during payment processing:", error);
+        }
+      };
+    
+
     return (
         <div className="flex flex-col h-screen bg-white">
             <div className="p-4 flex justify-between items-center bg-white border-b shadow-sm">
@@ -42,19 +118,16 @@ export default function Component() {
                             <dl>
                                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt className="text-sm font-medium text-gray-500">EMAIL*</dt>
-                                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">ex- jane.doe@gmail.com</dd>
+                                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{userDetails.email}</dd>
                                 </div>
                                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt className="text-sm font-medium text-gray-500">FIRST NAME*</dt>
-                                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">ex- Jane</dd>
+                                    <dt className="text-sm font-medium text-gray-500">NAME*</dt>
+                                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{userDetails.fullName}</dd>
                                 </div>
-                                <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt className="text-sm font-medium text-gray-500">LAST NAME*</dt>
-                                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">ex- Doe</dd>
-                                </div>
+
                                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt className="text-sm font-medium text-gray-500">PHONE NUMBER*</dt>
-                                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">(201) 555-0123</dd>
+                                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{userDetails.contactNumber}</dd>
                                 </div>
                             </dl>
                         </div>
@@ -100,31 +173,54 @@ export default function Component() {
                                 <i className="far fa-credit-card mr-2" />
                                 Pay with Credit Card
                             </button>
+
                         </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
                             <label className="block">
+                                <span className="text-gray-700">Total Fare:</span>
+                                <input
+                                    type="text"
+                                    placeholder="--"
+                                    value={totalFare} // Set the total fare from props
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                                    readOnly // Make it non-editable
+                                />
+                            </label>
+                            <label className="block">
                                 <span className="text-gray-700">Card Number:</span>
-                                <input type="text" placeholder="•••• •••• •••• ••••" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                                <input type="text" placeholder="•••• •••• •••• ••••" 
+                                value={cardNumber}
+                                onChange={(e) => setCardNumber(e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
                             </label>
                             <label className="block">
                                 <span className="text-gray-700">Card Expiration:</span>
-                                <input type="text" placeholder="MM / YYYY" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                                <input type="text" placeholder="MM / YYYY" 
+                                value={expDate}
+                                onChange={(e) => setExpDate(e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
                             </label>
                             <label className="block">
                                 <span className="text-gray-700">Card CVV:</span>
-                                <input type="text" placeholder="CVV" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                                <input type="text" placeholder="CVV" 
+                                value={cvv}
+                                onChange={(e) => setCvv(e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
                             </label>
                         </div>
                         <label className="block mb-6">
                             <span className="text-gray-700">Zip Code:</span>
-                            <input type="text" placeholder="ex: 12345" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            <input type="text" placeholder="ex: 12345" 
+                            value={zipCode}
+                            onChange={(e) => setZipCode(e.target.value)}
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
                         </label>
                         <div className="bg-gray-100 p-4 rounded-md mb-6">
                             <p className="text-sm text-gray-700">MOBILE OR PRINTED PASS ACCEPTED</p>
                             <p className="text-sm text-gray-700">Mobile or printed accepted to enter and exit this location.</p>
                         </div>
-                        <div className="flex items-center justify-between mb-4">
+                        {/* <div className="flex items-center justify-between mb-4">
                             <button className="text-blue-600 flex items-center gap-2 font-medium">
                                 ADD A PROMO OR ACCESS CODE <span className="text-red-500">{'>'}</span>
                             </button>
@@ -141,14 +237,16 @@ export default function Component() {
                                 </button>
                             </div>
                             
-                        </div>
+                        </div> */}
                         <div className="flex items-center mb-6">
                             <input type="checkbox" className="accent-orange-400 rounded mr-2" />
                             <span className="text-sm text-gray-700">Yes, send me information about special offers near me.</span>
                         </div>
-                        <button className="bg-blue-600 text-white px-6 py-2 rounded focus:outline-none hover:bg-blue-700 transition-colors">
-                                Purchase here
-                       </button>
+                        <button 
+                        onClick={handlePurchase}
+                        className="bg-blue-600 text-white px-6 py-2 rounded focus:outline-none hover:bg-blue-700 transition-colors">
+                            Purchase here
+                        </button>
 
 
                     </div>

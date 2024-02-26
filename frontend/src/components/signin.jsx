@@ -1,3 +1,7 @@
+/* Author: Raghav Malhotra
+Subject: PRJ 666ZAA
+Professor Name: Clint Macdonald */
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +27,12 @@ const SignIn = () => {
         localStorage.setItem("userType", data.userType);
         Cookies.set('token', data.token, { expires: 1 }); // Expires after 1 day
       
+        // Store userDetails separately
+        localStorage.setItem("customerId", data.userDetails.CustomerID);
+        localStorage.setItem("email", data.userDetails.Email);
+        localStorage.setItem("contactNumber", data.userDetails.ContactNumber);
+        localStorage.setItem("fullName", data.userDetails.FullName);
+
         alert("Login Successfull")
         if (data.userType === "Customer") {
           navigate("/home");
