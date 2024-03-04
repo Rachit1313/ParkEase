@@ -1,10 +1,3 @@
-/*
-Name: Raghav Malhotra
-Student ID: 153547211
-Course: PRJ666 ZAA
-Professor: Clint MacDonald
-*/
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -121,7 +114,7 @@ const SignIn = () => {
           </p>
           <div className="text-sm text-center mt-4">
             Don't have an account?{" "}
-            <Link to="/" className="font-bold text-blue-500 hover:underline">
+            <Link to="/signup" className="font-bold text-blue-500 hover:underline">
               Register
             </Link>
           </div>

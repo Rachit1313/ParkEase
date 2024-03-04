@@ -1,11 +1,3 @@
-/*
-Name: Ayush Shah
-Student ID: 161823216
-Course: PRJ666 ZAA
-Professor: Clint MacDonald
-*/
-
-
 import SignUp from '../components/signup';
 import SignIn from '../components/signin';
 import ForgotPassword from '../components/forgot_password';

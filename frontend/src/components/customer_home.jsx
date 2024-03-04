@@ -1,10 +1,3 @@
-/*
-Name: Ayush Shah
-Student ID: 161823216
-Course: PRJ666 ZAA
-Professor: Clint MacDonald
-*/
-
 import { useState, useEffect, useRef } from "react";
 import { faFacebookF, faTwitter, faInstagram, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
@@ -133,8 +126,13 @@ export default function Component() {
         if (createBookingResponse.ok) {
           const bookingData = await createBookingResponse.json();
   
-          
+         
+          console.log('bookingId: '+bookingData.bookingId)
+          console.log('fare: '+bookingData.totalFare)
 
+          localStorage.setItem('bookingId', bookingData.bookingId);
+          localStorage.setItem('totalFare', bookingData.totalFare);
+         
           // Redirect user to /payment and pass bookingId and totalFare as props
           navigate("/payment", {
             state: {

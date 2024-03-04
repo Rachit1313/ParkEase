@@ -1,20 +1,16 @@
-/*
-Name: Raghav Malhotra
-Student ID: 153547211
-Course: PRJ666 ZAA
-Professor: Clint MacDonald
-*/
-
 import { useState, useEffect, useRef } from "react";
 import { faFacebookF, faTwitter, faInstagram, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { useNavigate } from "react-router-dom";
 
 
-export default function Component({ bookingId, totalFare }) {
+export default function Component({ bId, tFare }) {
   const [cardNumber, setCardNumber] = useState('');
   const [expDate, setExpDate] = useState('');
   const [cvv, setCvv] = useState('');
   const [zipCode, setZipCode] = useState('');
+  const [bookingId, setBookingId] = useState('');
+  const [totalFare, setTotalFare] = useState('');
+
     const [userDetails, setUserDetails] = useState({
         email: '',
         fullName: '',
@@ -22,11 +18,14 @@ export default function Component({ bookingId, totalFare }) {
     });
     const navigate = useNavigate();
     
-
+    
    
     useEffect(() => {
         
-        
+        const localbookingId = localStorage.getItem('bookingId');
+        const localtotalFare = localStorage.getItem('totalFare'); 
+
+
         // Retrieve user details from localStorage
         const customerId = localStorage.getItem('customerId');
         const email = localStorage.getItem('email');
@@ -39,6 +38,11 @@ export default function Component({ bookingId, totalFare }) {
             fullName: fullName || '',
             contactNumber: contactNumber || '',
         });
+
+        setBookingId(localbookingId);
+        setTotalFare(localtotalFare);
+
+
     }, []);
 
     const handlePurchase = async () => {

@@ -1,10 +1,3 @@
-/*
-Name: Ayush Shah
-Student ID: 161823216
-Course: PRJ666 ZAA
-Professor: Clint MacDonald
-*/
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -57,7 +50,7 @@ const SignUp = () => {
       if (response.ok) {
         const data = await response.json();
         alert("Registeration successful")
-        navigate("/signin");
+        navigate("/");
       } else {
         console.error("Registration failed");
       }
@@ -189,7 +182,7 @@ const SignUp = () => {
 
           <div className="text-center text-xs mt-14">
             Already have an account?{" "}
-            <Link to="/signin" className="text-blue-600 font-bold cursor-pointer">
+            <Link to="/" className="text-blue-600 font-bold cursor-pointer">
               Login
             </Link>
           </div>

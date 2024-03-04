@@ -1,10 +1,3 @@
-/*
-Name: Ayush Shah
-Student ID: 161823216
-Course: PRJ666 ZAA
-Professor: Clint MacDonald
-*/
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AppRouter from './routes/AppRouter';
