@@ -36,4 +36,3 @@ module.exports= (req, res) => {
     });
 };
 
-module.exports = router;
