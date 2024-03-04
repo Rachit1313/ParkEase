@@ -1,3 +1,10 @@
+/*
+Name: Ayush Shah
+Student ID: 161823216
+Course: PRJ666 ZAA
+Professor: Clint MacDonald
+*/
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -55,7 +62,7 @@ const SignUp = () => {
         console.error("Registration failed");
       }
     } catch (error) {
-      console.error("Error during registration:", error);
+      alert("Error during registration:", error);
     }
   };
 

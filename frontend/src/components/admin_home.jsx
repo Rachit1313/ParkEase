@@ -1,6 +1,9 @@
-/* Author: Raghav Malhotra
-Subject: PRJ 666ZAA
-Professor Name: Clint MacDonald */
+/*
+Name: Ayush Shah
+Student ID: 161823216
+Course: PRJ666 ZAA
+Professor: Clint MacDonald
+*/
 
 import { useState, useEffect, useRef } from "react";
 
