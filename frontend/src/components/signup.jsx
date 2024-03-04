@@ -46,13 +46,15 @@ const SignUp = () => {
         },
         body: JSON.stringify({ email, password, contactNumber: phone, fullName }),
       });
-
-      
+      console.log(response.status)
       if (response.status == 201) {
-        const data = await response.json();
-        alert("Registeration successful")
+       // const data = await response.json();
+        alert("Registration successful")
         navigate("/");
-      } else {
+      } else if(response.status == 409)
+      {
+          alert("User already exists with this email")
+        } else {
         alert("Registration failed");
       }
     } catch (error) {
