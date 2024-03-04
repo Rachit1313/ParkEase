@@ -16,7 +16,7 @@ const router = express.Router();
 router.post('/login', require('./login'));
 router.post('/register',require('./register'))
 router.post('/forgotPassword', require('./forgotPassword'));
-router.get('/available-spots', require('./getParkingSpots'));
+router.post('/available-spots', require('./getParkingSpots'));
 router.get('/booking-history/:customerId', require('./getBookingHistory'));
 router.get('/garageList', require('./getGarages') );
 router.post('/create-booking', require('./createBooking'));
