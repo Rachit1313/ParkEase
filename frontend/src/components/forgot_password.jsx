@@ -2,7 +2,7 @@
 Name: Raghav Malhotra
 Student ID: 153547211
 Course: PRJ666 ZAA
-Professor: Clint Macdonald
+Professor: Clint MacDonald
 */
 
 import { useState, useEffect, useRef } from "react";
