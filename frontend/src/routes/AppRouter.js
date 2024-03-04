@@ -1,13 +1,9 @@
-/* Author: Ayush Shah
-Subject: PRJ 666ZAA
-Professor Name: Clint MacDonald */
-
 import SignUp from '../components/signup';
 import SignIn from '../components/signin';
 import ForgotPassword from '../components/forgot_password';
 import AdminPanelHome from '../components/admin_home';
 import CustomerPanelHome from '../components/customer_home';
-import BookingPage from '../components/booking';
+import BookingPage from '../components/history';
 import PaymentPage from '../components/payment';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -25,10 +21,11 @@ const AppRouter = () => {
           
           <Route element={<ProtectedRoutes />}>
             <Route path="/" element={<SignIn/>} />
-            <Route path="/book" element={<BookingPage />} />
-            <Route path="/payment" element={<PaymentPage />} />
-            <Route path="/home" element={<CustomerPanelHome />} />
+            
             <Route path="/admin" element={<AdminPanelHome />} />
+            <Route path="/home" element={<CustomerPanelHome />} />
+            <Route path="/payment" element={<PaymentPage />} />
+            <Route path="/history" element={<BookingPage />} />
            
          </Route>
         </Routes>
