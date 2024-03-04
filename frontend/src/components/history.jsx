@@ -8,8 +8,13 @@ export default function Component() {
   const [bookingHistory, setBookingHistory] = useState([]);
 
   // Helper function to calculate time remaining
-  const calculateTimeRemaining = (checkoutTime) => {
+  const calculateTimeRemaining = (checkoutTime, checkInTime) => {
     const currentTime = new Date();
+    
+    if (checkoutTime <= currentTime) {
+      return '0hr 0min';
+    }
+
     const remainingTimeMillis = checkoutTime - currentTime;
 
     const hours = Math.floor(remainingTimeMillis / (1000 * 60 * 60));
@@ -54,7 +59,9 @@ export default function Component() {
             <span className="font-bold text-blue-800">History</span>
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-800"></span>
           </li>
-          <li className="mt-2">About Us</li>
+          <li className="mt-2">
+            <Link to="/about">About Us</Link>
+          </li>
           <li className="mt-2">
             <button className="rounded-lg bg-blue-800 text-white px-6 py-1.5 text-lg transition duration-300 ease-in-out hover:bg-blue-900">
               My Account
@@ -87,7 +94,7 @@ export default function Component() {
                       </p>
                       <p className="text-xl text-gray-700">Garage: {booking.GarageID}</p>
                       <p className="text-2xl text-gray-700 underline hover:bg-gray-200 p-2">
-                        Time Remaining: {calculateTimeRemaining(new Date(booking.CheckOutTime))}
+                        Time Remaining: {calculateTimeRemaining(new Date(booking.CheckOutTime), new Date(booking.CheckInTime))}
                       </p>
                     </div>
                   </div>

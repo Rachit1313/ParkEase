@@ -47,12 +47,13 @@ const SignUp = () => {
         body: JSON.stringify({ email, password, contactNumber: phone, fullName }),
       });
 
-      if (response.ok) {
+      
+      if (response.status == 201) {
         const data = await response.json();
         alert("Registeration successful")
         navigate("/");
       } else {
-        console.error("Registration failed");
+        alert("Registration failed");
       }
     } catch (error) {
       alert("Error during registration:", error);

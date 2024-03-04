@@ -171,7 +171,9 @@ export default function Component() {
           <li className="mt-2">
             <Link to="/history">History</Link>
           </li>
-          <li className="mt-2">About Us</li>
+          <li className="mt-2">
+            <Link to="/about">About Us</Link>
+          </li>
           <li className="mt-2">
             <button className="rounded-lg bg-blue-800 text-white px-6 py-1.5 text-lg transition duration-300 ease-in-out hover:bg-blue-900">
               My Account

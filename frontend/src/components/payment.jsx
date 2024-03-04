@@ -19,7 +19,6 @@ export default function Component({ bId, tFare }) {
     const navigate = useNavigate();
     
     
-   
     useEffect(() => {
         
         const localbookingId = localStorage.getItem('bookingId');
