@@ -1,7 +1,3 @@
-/* Author: Raghav Malhotra
-Subject: PRJ 666ZAA
-Professor Name: Clint Macdonald */
-
 import { useState, useEffect, useRef } from "react";
 import { faFacebookF, faTwitter, faInstagram, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';

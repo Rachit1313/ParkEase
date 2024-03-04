@@ -1,7 +1,3 @@
-/* Author: Raghav Malhotra
-Subject: PRJ 666ZAA
-Professor Name: Clint Macdonald */
-
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
