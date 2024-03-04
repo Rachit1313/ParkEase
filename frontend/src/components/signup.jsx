@@ -1,3 +1,10 @@
+/*
+Name: Ayush Shah
+Student ID: 161823216
+Course: PRJ666 ZAA
+Professor: Clint Macdonald
+*/
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";

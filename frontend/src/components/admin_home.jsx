@@ -1,3 +1,10 @@
+/*
+Name: Ayush Shah
+Student ID: 161823216
+Course: PRJ666 ZAA
+Professor: Clint Macdonald
+*/
+
 import { useState, useEffect, useRef } from "react";
 
 export default function Component() {

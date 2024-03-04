@@ -1,3 +1,10 @@
+/*
+Name: Raghav Malhotra
+Student ID: 153547211
+Course: PRJ666 ZAA
+Professor: Clint Macdonald
+*/
+
 import { useState, useEffect, useRef } from "react";
 import { faFacebookF, faTwitter, faInstagram, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { useNavigate } from "react-router-dom";
