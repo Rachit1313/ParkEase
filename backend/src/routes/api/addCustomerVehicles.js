@@ -5,8 +5,7 @@
 // Author: Heavendeep kaur
 // Date: February 24, 2024
 
-const express = require('express');
-const router = express.Router();
+
 const db = require('../../database');
 const logger = require('../../logger');
 
