@@ -11,7 +11,7 @@ const db = require('../../database');
 const logger = require('../../logger');
 
 // API to add a new vehicle related to a customer
-router.post('/addVehicle', (req, res) => {
+module.exports= (req, res) => {
     const { plateNumber,customerId, makeModel } = req.body;
    
     // Step 1: Validate input
@@ -34,6 +34,6 @@ router.post('/addVehicle', (req, res) => {
         // Vehicle added successfully
         res.status(200).json({ message: 'Vehicle added successfully.' });
     });
-});
+};
 
 module.exports = router;
