@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
     const sql = `
       SELECT 
         PlateNumber, CustomerID, MakeModel
-      FROM Vehicle
+      FROM NumberPlate
       WHERE CustomerID = ?
     `;
 
