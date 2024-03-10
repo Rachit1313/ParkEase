@@ -1,11 +1,50 @@
 import { useState, useEffect, useRef } from "react";
 import { faFacebookF, faTwitter, faInstagram, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
-
+import Cookies from 'js-cookie';
 
 
 export default function Component() {
-    return (
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  
+  const handleAccountClick = () => {
+    setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown visibility
+};
+
+useEffect(() => {
+  document.title = "About ParkEase";
+  const favicon = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    favicon.type = 'image/png';
+    favicon.rel = 'icon';
+    favicon.href = "https://file.rendit.io/n/Sdx696lWt20H3dmB4Qmz.png";
+    document.head.appendChild(favicon);
+}, []);
+
+const handleLogout = async () => {
+    try {
+        Cookies.remove('token');
+
+        localStorage.removeItem('userType');
+        localStorage.removeItem('customerId');
+        localStorage.removeItem('email');
+        localStorage.removeItem('contactNumber');
+        localStorage.removeItem('fullName');
+
+
+        window.location.href = '/';
+
+    } catch (error) {
+        console.error('Error during logout:', error);
+
+    }
+};
+
+
+const handleManageVehicles = () => {
+    window.location.href = '/vehicles'; 
+};
+  
+   return (
         <div className="flex flex-col h-screen bg-white">
           <div className="p-4 flex justify-between items-center bg-white border-b shadow-sm">
             <img
@@ -17,7 +56,7 @@ export default function Component() {
               <li className="mt-2">
                 <Link to="/home">Home</Link>
               </li>
-              <li className="mt-2 relative">
+              <li className="mt-2 ">
                 <span className="font-bold text-blue-800">About</span>
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-800"></span>
               </li>
@@ -25,10 +64,23 @@ export default function Component() {
                 <Link to="/history">History</Link>
               </li>
               <li className="mt-2">
-                <button className="rounded-lg bg-blue-800 text-white px-6 py-1.5 text-lg transition duration-300 ease-in-out hover:bg-blue-900">
-                  My Account
-                </button>
-              </li>
+                        <button
+                            className="rounded-lg bg-blue-800 text-white px-6 py-1.5 text-lg transition duration-300 ease-in-out hover:bg-blue-900"
+                            onClick={handleAccountClick}
+                        >
+                            My Account
+                        </button>
+                        {isDropdownOpen && ( // Conditionally render dropdown items
+                            <ul className="absolute right-0 mt-2 shadow-md rounded-md bg-white overflow-hidden">
+                                <li className="hover:bg-gray-100 px-4 py-2">
+                                    <button onClick={handleLogout}>Logout</button>
+                                </li>
+                                <li className="hover:bg-gray-100 px-4 py-2">
+                                    <button onClick={handleManageVehicles}>Manage Vehicles</button>
+                                </li>
+                            </ul>
+                        )}
+                    </li>
             </ul>
           </div>
     

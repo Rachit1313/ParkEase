@@ -6,6 +6,8 @@ import CustomerPanelHome from '../components/customer_home';
 import BookingPage from '../components/history';
 import PaymentPage from '../components/payment';
 import AboutPage from '../components/about';
+import SavedVehicles from '../components/saved_vehicles'
+import Notification from '../components/notification';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProtectedRoutes from './ProtectedRoutes';
@@ -18,11 +20,12 @@ const AppRouter = () => {
           <Route path="/forgot-password" element={<ForgotPassword/>} />
           
           <Route path="/signup" element={<SignUp/>} />
-          <Route path="/about" element={<AboutPage/>} />
-          
+          <Route path="/about" element={<AboutPage/>} /> 
+          <Route path="/vehicles" element={<SavedVehicles/>} />
+           
           <Route element={<ProtectedRoutes />}>
             <Route path="/" element={<SignIn/>} />
-            
+           
             <Route path="/admin" element={<AdminPanelHome />} />
             
             <Route path="/home" element={<CustomerPanelHome />} />
