@@ -1,11 +1,18 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import Notification from "./notification";
 
 export default function Component() {
   
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const [notification, setNotification] = useState(null);
 
+    const showNotification = (message, type) => {
+        console.log(message)
+        setNotification({ message, type }); 
+        setTimeout(() => setNotification(null), 3000);
+    };
   const handleResetPassword = async () => {
     
     if (!email.trim()) {
@@ -97,6 +104,8 @@ export default function Component() {
           </a>
         </div>
     </div>
+    {notification && <Notification message={notification.message} type={notification.type} />}
+    
 </div>  
   );
 }

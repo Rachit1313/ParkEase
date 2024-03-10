@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { faFacebookF, faTwitter, faInstagram, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { useNavigate } from "react-router-dom";
-
+import Notification from "./notification";
 
 export default function Component({ bId, tFare }) {
   const [cardNumber, setCardNumber] = useState('');
@@ -10,7 +10,13 @@ export default function Component({ bId, tFare }) {
   const [zipCode, setZipCode] = useState('');
   const [bookingId, setBookingId] = useState('');
   const [totalFare, setTotalFare] = useState('');
+  const [notification, setNotification] = useState(null);
 
+  const showNotification = (message, type) => {
+      console.log(message)
+      setNotification({ message, type }); 
+      setTimeout(() => setNotification(null), 3000);
+  };
     const [userDetails, setUserDetails] = useState({
         email: '',
         fullName: '',
@@ -18,6 +24,14 @@ export default function Component({ bId, tFare }) {
     });
     const navigate = useNavigate();
     
+    useEffect(() => {
+        document.title = "Payment";
+        const favicon = document.querySelector("link[rel*='icon']") || document.createElement('link');
+          favicon.type = 'image/png';
+          favicon.rel = 'icon';
+          favicon.href = "https://file.rendit.io/n/Sdx696lWt20H3dmB4Qmz.png";
+          document.head.appendChild(favicon);
+      }, []);
     
     useEffect(() => {
         
@@ -48,7 +62,7 @@ export default function Component({ bId, tFare }) {
         try {
           // Validate card details (you may want to add more validation)
           if (!cardNumber || !expDate || !cvv || !zipCode) {
-            alert('Please fill in all payment details.');
+            showNotification("Please fill in all payment details", "failure");
             return;
           }
     
@@ -75,13 +89,13 @@ export default function Component({ bId, tFare }) {
     
           if (response.ok) {
             const data = await response.json();
-            alert(data.message); // Show success message
+            showNotification("Payment Sucessful, redirecting ..", "success");
             navigate('/history')
           } else {
             console.error("Failed to process payment");
           }
         } catch (error) {
-          console.error("Error during payment processing:", error);
+          showNotification("Error during payment processing", "failure");
         }
       };
     
@@ -261,6 +275,8 @@ export default function Component({ bId, tFare }) {
 
 
             </div>
+            {notification && <Notification message={notification.message} type={notification.type} />}
+    
         </div>
     );
 }
