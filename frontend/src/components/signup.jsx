@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Notification from "./notification";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -10,30 +11,45 @@ const SignUp = () => {
   const [fullName, setFullName] = useState("");
   const navigate = useNavigate();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [notification, setNotification] = useState(null);
 
+    const showNotification = (message, type) => {
+        console.log(message)
+        setNotification({ message, type }); 
+        setTimeout(() => setNotification(null), 3000);
+    };
   const handleTogglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
+  useEffect(() => {
+    document.title = "Sign Up";
+    const favicon = document.querySelector("link[rel*='icon']") || document.createElement('link');
+      favicon.type = 'image/png';
+      favicon.rel = 'icon';
+      favicon.href = "https://file.rendit.io/n/Sdx696lWt20H3dmB4Qmz.png";
+      document.head.appendChild(favicon);
+  }, []);
+
   const handleSignUp = async () => {
 
     if (!email.trim()) {
-      alert("Please enter your email address.");
+      showNotification("Please enter your email address", "failure");
       return;
     }
 
     if (!phone.trim()) {
-      alert("Please enter your phone number.");
+      showNotification("Please enter your phone number", "failure");
       return;
     }
 
     if (!password.trim()) {
-      alert("Please enter a password.");
+      showNotification("Please enter a password", "failure");
       return;
     }
 
     if (password != password2) {
-      alert("Passwords don't match. Please re-enter your password.");
+      showNotification("Passwords don't match. Please re-enter your password", "failure");
       return;
     }
 
@@ -46,19 +62,17 @@ const SignUp = () => {
         },
         body: JSON.stringify({ email, password, contactNumber: phone, fullName }),
       });
-      console.log(response.status)
+
+      
       if (response.status == 201) {
-       // const data = await response.json();
-        alert("Registration successful")
+        const data = await response.json();
+        showNotification("Registeration successful", "failure");
         navigate("/");
-      } else if(response.status == 409)
-      {
-          alert("User already exists with this email")
-        } else {
-        alert("Registration failed");
+      } else {
+        showNotification("Registration failed", "failure");
       }
     } catch (error) {
-      alert("Error during registration:", error);
+      showNotification("Error during registration", "failure");
     }
   };
 
@@ -191,6 +205,8 @@ const SignUp = () => {
           </div>
         </div>
       </div>
+      {notification && <Notification message={notification.message} type={notification.type} />}
+    
     </div>
   );
 };

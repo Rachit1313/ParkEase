@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { faFacebookF, faTwitter, faInstagram, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
+import Notification from "./notification";
 
 function FeatureSection({ title, description, imgSrc }) {
   return (
@@ -25,6 +27,51 @@ export default function Component() {
   const [selectedGarageId, setSelectedGarageId] = useState(null);
   const [selectedSpot, setSelectedSpot] = useState(null);
   const navigate = useNavigate();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [notification, setNotification] = useState(null);
+
+  const showNotification = (message, type) => {
+      console.log(message)
+      setNotification({ message, type }); 
+      setTimeout(() => setNotification(null), 3000);
+  };
+    const handleAccountClick = () => {
+        setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown visibility
+    };
+
+
+    const handleLogout = async () => {
+        try {
+            Cookies.remove('token');
+
+            localStorage.removeItem('userType');
+            localStorage.removeItem('customerId');
+            localStorage.removeItem('email');
+            localStorage.removeItem('contactNumber');
+            localStorage.removeItem('fullName');
+
+
+            window.location.href = '/';
+
+        } catch (error) {
+            console.error('Error during logout:', error);
+
+        }
+    };
+
+    useEffect(() => {
+      document.title = "Home";
+      const favicon = document.querySelector("link[rel*='icon']") || document.createElement('link');
+        favicon.type = 'image/png';
+        favicon.rel = 'icon';
+        favicon.href = "https://file.rendit.io/n/Sdx696lWt20H3dmB4Qmz.png";
+        document.head.appendChild(favicon);
+    }, []);
+
+    const handleManageVehicles = () => {
+        window.location.href = '/vehicles'; 
+    };
+
 
   // Update the selected spot when the user selects a spot from the dropdown
   const handleSpotChange = (event) => {
@@ -34,8 +81,28 @@ export default function Component() {
   };
 
   const formatDateTime = (date, time) => {
-    return new Date(`${date}T${time}:00`).toISOString();
+    // Combine date and time with a separator
+    const dateTimeString = `${date}T${time}`;
+  
+    // Create a new Date object in local time
+    const localDate = new Date(dateTimeString);
+  
+    const timeZoneOffset = localDate.getTimezoneOffset();
+    localDate.setMinutes(localDate.getMinutes() + timeZoneOffset);
+  
+    // Add the specified hours
+    localDate.setHours(localDate.getHours() + 10);
+  
+    // Format the adjusted date and time
+    const formattedDate = localDate.toISOString();
+    const formattedDateTime = formattedDate.slice(0, -1); // Remove trailing 'Z'
+  
+    
+    return formattedDateTime;
   };
+  
+  
+  
 
   useEffect(() => {
     if (selectedGarageId && checkInDate && checkInTime && checkOutDate && checkOutTime) {
@@ -58,10 +125,10 @@ export default function Component() {
           const data = await response.json();
           setGarages(data);
         } else {
-          alert("Failed to fetch garages");
+          showNotification("Failed to fetch garages", "failure");
         }
       } catch (error) {
-        alert("Error during garage fetch:", error);
+        showNotification("Error during garage fetch", "failure");
       }
     };
 
@@ -69,6 +136,8 @@ export default function Component() {
   }, []);
 
   const displaySpots = async() => {
+    
+    
     // Format check-in and check-out times
     const formattedCheckInTime = formatDateTime(checkInDate, checkInTime);
     const formattedCheckOutTime = formatDateTime(checkOutDate, checkOutTime);
@@ -91,10 +160,12 @@ export default function Component() {
         const data = await response.json();
         setAvailableSpots(data.availableSpots);
       } else {
-        alert("Failed to fetch available spots");
+        showNotification("Failed to fetch available spots", "failure");
+        
       }
     } catch (error) {
-      alert("Error during available spots fetch:", error);
+      showNotification("Error during available spots fetch", "failure");
+      
     }
   }
 
@@ -130,21 +201,37 @@ export default function Component() {
           console.log('bookingId: '+bookingData.bookingId)
           console.log('fare: '+bookingData.totalFare)
 
+          const fareResponse = window.confirm(`Total Fare: ${bookingData.totalFare} | Tax: 2%`);
+
+  
+          if(fareResponse){
+
+          }else{
+
+          }
+
+          var taxDeduct = bookingData.totalFare * 0.2;
+          var finalFare = bookingData.totalFare - taxDeduct;
+
           localStorage.setItem('bookingId', bookingData.bookingId);
-          localStorage.setItem('totalFare', bookingData.totalFare);
+          localStorage.setItem('totalFare', finalFare);
          
+
+
           // Redirect user to /payment and pass bookingId and totalFare as props
           navigate("/payment", {
             state: {
               bookingId: bookingData.bookingId,
-              totalFare: bookingData.totalFare,
+              totalFare: finalFare,
             },
           });
         } else {
-          alert("Failed to create a new booking");
+          showNotification("Failed to create a new booking", "failure");
+          
         }
       } catch (error) {
-        alert("Error during booking creation:", error);
+        showNotification("Error during booking creation", "failure");
+        
       }
     } else {
       
@@ -175,10 +262,23 @@ export default function Component() {
             <Link to="/about">About Us</Link>
           </li>
           <li className="mt-2">
-            <button className="rounded-lg bg-blue-800 text-white px-6 py-1.5 text-lg transition duration-300 ease-in-out hover:bg-blue-900">
-              My Account
-            </button>
-          </li>
+                        <button
+                            className="rounded-lg bg-blue-800 text-white px-6 py-1.5 text-lg transition duration-300 ease-in-out hover:bg-blue-900"
+                            onClick={handleAccountClick}
+                        >
+                            My Account
+                        </button>
+                        {isDropdownOpen && ( // Conditionally render dropdown items
+                            <ul className="absolute right-0 mt-2 shadow-md rounded-md bg-white overflow-hidden">
+                                <li className="hover:bg-gray-100 px-4 py-2">
+                                    <button onClick={handleLogout}>Logout</button>
+                                </li>
+                                <li className="hover:bg-gray-100 px-4 py-2">
+                                    <button onClick={handleManageVehicles}>Manage Vehicles</button>
+                                </li>
+                            </ul>
+                        )}
+                    </li>
         </ul>
 
       </div>
@@ -427,6 +527,8 @@ export default function Component() {
           </div>
         </div>
       </div>
+      {notification && <Notification message={notification.message} type={notification.type} />}
+    
     </div>
   );
 }

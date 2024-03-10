@@ -1,12 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
+import Notification from "./notification";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [notification, setNotification] = useState(null);
+
+    const showNotification = (message, type) => {
+        console.log(message)
+        setNotification({ message, type }); 
+        setTimeout(() => setNotification(null), 3000);
+    };
+
+
+  useEffect(() => {
+    document.title = "Sign IN";
+    const favicon = document.querySelector("link[rel*='icon']") || document.createElement('link');
+      favicon.type = 'image/png';
+      favicon.rel = 'icon';
+      favicon.href = "https://file.rendit.io/n/Sdx696lWt20H3dmB4Qmz.png";
+      document.head.appendChild(favicon);
+  }, []);
 
   const handleSignIn = async () => {
     try {
@@ -29,7 +47,7 @@ const SignIn = () => {
         localStorage.setItem("contactNumber", data.userDetails.ContactNumber);
         localStorage.setItem("fullName", data.userDetails.FullName);
 
-        alert("Login Successfull")
+        showNotification("Login Successful", "success");
         if (data.userType === "Customer") {
           navigate("/home");
         } else if (data.userType === "Admin") {
@@ -41,7 +59,7 @@ const SignIn = () => {
         alert("Login failed");
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      showNotification("Login Failed!", "failure");
     }
   };
 
@@ -120,6 +138,8 @@ const SignIn = () => {
           </div>
         </div>
       </div>
+      {notification && <Notification message={notification.message} type={notification.type} />}
+    
     </div>
   );
 };
