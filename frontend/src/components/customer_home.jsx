@@ -81,25 +81,15 @@ export default function Component() {
   };
 
   const formatDateTime = (date, time) => {
+    
     // Combine date and time with a separator
     const dateTimeString = `${date}T${time}`;
-  
-    // Create a new Date object in local time
-    const localDate = new Date(dateTimeString);
-  
-    const timeZoneOffset = localDate.getTimezoneOffset();
-    localDate.setMinutes(localDate.getMinutes() + timeZoneOffset);
-  
-    // Add the specified hours
-    localDate.setHours(localDate.getHours() + 10);
-  
-    // Format the adjusted date and time
-    const formattedDate = localDate.toISOString();
-    const formattedDateTime = formattedDate.slice(0, -1); // Remove trailing 'Z'
-  
-    
+
+    // Create a string in the desired format
+    const formattedDateTime = `${dateTimeString}:00.000`;
+
     return formattedDateTime;
-  };
+};
   
   
   
@@ -124,6 +114,9 @@ export default function Component() {
         if (response.ok) {
           const data = await response.json();
           setGarages(data);
+          setSelectedGarageId(garages[0].GarageID);
+          console.log('selected garage id: '+selectedGarageId)
+          
         } else {
           showNotification("Failed to fetch garages", "failure");
         }
@@ -142,6 +135,14 @@ export default function Component() {
     const formattedCheckInTime = formatDateTime(checkInDate, checkInTime);
     const formattedCheckOutTime = formatDateTime(checkOutDate, checkOutTime);
 
+    console.log("Check in: "+ formattedCheckInTime)
+    console.log("Check out: "+ formattedCheckOutTime)
+
+    if(!formattedCheckInTime || !formattedCheckOutTime){
+      return;
+    }
+
+   
     try {
       // Make API request to get available spots
       const response = await fetch(process.env.REACT_APP_BACKEND_URL + "available-spots", {
@@ -159,6 +160,7 @@ export default function Component() {
       if (response.ok) {
         const data = await response.json();
         setAvailableSpots(data.availableSpots);
+        console.log(data)
       } else {
         showNotification("Failed to fetch available spots", "failure");
         
@@ -201,17 +203,13 @@ export default function Component() {
           console.log('bookingId: '+bookingData.bookingId)
           console.log('fare: '+bookingData.totalFare)
 
-          const fareResponse = window.confirm(`Total Fare: ${bookingData.totalFare} | Tax: 2%`);
-
-  
-          if(fareResponse){
-
-          }else{
-
-          }
+         
 
           var taxDeduct = bookingData.totalFare * 0.2;
-          var finalFare = bookingData.totalFare - taxDeduct;
+          var finalFare = bookingData.totalFare + taxDeduct;
+
+          const fareResponse = window.confirm(`Total Fare: ${finalFare} | Tax: 13%`);
+
 
           localStorage.setItem('bookingId', bookingData.bookingId);
           localStorage.setItem('totalFare', finalFare);
@@ -230,7 +228,7 @@ export default function Component() {
           
         }
       } catch (error) {
-        showNotification("Error during booking creation", "failure");
+        showNotification("Error during booking creation\n"+error, "failure");
         
       }
     } else {

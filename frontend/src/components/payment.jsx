@@ -4,39 +4,60 @@ import { useNavigate } from "react-router-dom";
 import Notification from "./notification";
 
 export default function Component({ bId, tFare }) {
-  const [cardNumber, setCardNumber] = useState('');
-  const [expDate, setExpDate] = useState('');
-  const [cvv, setCvv] = useState('');
-  const [zipCode, setZipCode] = useState('');
-  const [bookingId, setBookingId] = useState('');
-  const [totalFare, setTotalFare] = useState('');
-  const [notification, setNotification] = useState(null);
+    const [cardNumber, setCardNumber] = useState('');
+    const [expDate, setExpDate] = useState('');
+    const [cvv, setCvv] = useState('');
+    const [zipCode, setZipCode] = useState('');
+    const [bookingId, setBookingId] = useState('');
+    const [totalFare, setTotalFare] = useState('');
+    const [notification, setNotification] = useState(null);
+    const [savedVehicles, setSavedVehicles] = useState([]);
 
-  const showNotification = (message, type) => {
-      console.log(message)
-      setNotification({ message, type }); 
-      setTimeout(() => setNotification(null), 3000);
-  };
+    useEffect(() => {
+        const fetchSavedVehicles = async () => {
+            try {
+                const customerId = localStorage.getItem("customerId");
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}saved-vehicles/${customerId}`);
+
+                if (response.ok) {
+                    const data = await response.json();
+                    setSavedVehicles(data);
+                } else {
+                    console.error('Failed to fetch saved vehicles');
+                }
+            } catch (error) {
+                console.error('Error during saved vehicles fetch:', error);
+            }
+        };
+
+        fetchSavedVehicles();
+    }, []);
+
+    const showNotification = (message, type) => {
+        console.log(message)
+        setNotification({ message, type });
+        setTimeout(() => setNotification(null), 3000);
+    };
     const [userDetails, setUserDetails] = useState({
         email: '',
         fullName: '',
         contactNumber: '',
     });
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         document.title = "Payment";
         const favicon = document.querySelector("link[rel*='icon']") || document.createElement('link');
-          favicon.type = 'image/png';
-          favicon.rel = 'icon';
-          favicon.href = "https://file.rendit.io/n/Sdx696lWt20H3dmB4Qmz.png";
-          document.head.appendChild(favicon);
-      }, []);
-    
+        favicon.type = 'image/png';
+        favicon.rel = 'icon';
+        favicon.href = "https://file.rendit.io/n/Sdx696lWt20H3dmB4Qmz.png";
+        document.head.appendChild(favicon);
+    }, []);
+
     useEffect(() => {
-        
+
         const localbookingId = localStorage.getItem('bookingId');
-        const localtotalFare = localStorage.getItem('totalFare'); 
+        const localtotalFare = localStorage.getItem('totalFare');
 
 
         // Retrieve user details from localStorage
@@ -60,45 +81,45 @@ export default function Component({ bId, tFare }) {
 
     const handlePurchase = async () => {
         try {
-          // Validate card details (you may want to add more validation)
-          if (!cardNumber || !expDate || !cvv || !zipCode) {
-            showNotification("Please fill in all payment details", "failure");
-            return;
-          }
-    
-          // Split the expiration date into month and year
-          const [expMonth, expYear] = expDate.split(' / ');
-    
-          // Make API request to process payment
-          const response = await fetch(process.env.REACT_APP_BACKEND_URL + "process-payment", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              customerId: localStorage.getItem("customerId"),
-              bookingId,
-              amount: totalFare,
-              cardNumber,
-              expMonth,
-              expYear,
-              cvv,
-              zipCode,
-            }),
-          });
-    
-          if (response.ok) {
-            const data = await response.json();
-            showNotification("Payment Sucessful, redirecting ..", "success");
-            navigate('/history')
-          } else {
-            console.error("Failed to process payment");
-          }
+            // Validate card details (you may want to add more validation)
+            if (!cardNumber || !expDate || !cvv || !zipCode) {
+                showNotification("Please fill in all payment details", "failure");
+                return;
+            }
+
+            // Split the expiration date into month and year
+            const [expMonth, expYear] = expDate.split(' / ');
+
+            // Make API request to process payment
+            const response = await fetch(process.env.REACT_APP_BACKEND_URL + "process-payment", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    customerId: localStorage.getItem("customerId"),
+                    bookingId,
+                    amount: totalFare,
+                    cardNumber,
+                    expMonth,
+                    expYear,
+                    cvv,
+                    zipCode,
+                }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                showNotification("Payment Sucessful, redirecting ..", "success");
+                navigate('/history')
+            } else {
+                console.error("Failed to process payment");
+            }
         } catch (error) {
-          showNotification("Error during payment processing", "failure");
+            showNotification("Error during payment processing", "failure");
         }
-      };
-    
+    };
+
 
     return (
         <div className="flex flex-col h-screen bg-white">
@@ -160,12 +181,18 @@ export default function Component({ bId, tFare }) {
                                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt className="text-sm font-medium text-gray-500">LICENSE PLATE*</dt>
                                     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                                        <input
-                                            type="text"
+                                        <select
                                             className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                            placeholder="Enter License Plate"
-                                        // Add any additional attributes or event handlers as needed
-                                        />
+                                        >
+                                            <option value="" disabled selected>
+                                                Select License Plate
+                                            </option>
+                                            {savedVehicles.map((vehicle) => (
+                                                <option key={vehicle.PlateNumber} value={vehicle.PlateNumber}>
+                                                    {vehicle.PlateNumber}
+                                                </option>
+                                            ))}
+                                        </select>
                                     </dd>
                                 </div>
 
@@ -179,7 +206,22 @@ export default function Component({ bId, tFare }) {
                                     <select
                                         className="border border-gray-300 p-3 rounded flex-1"
                                     >
-                                        <option>State</option>
+                                        <option value="" disabled selected>
+                                            Select State
+                                        </option>
+                                        <option value="ON">Ontario</option>
+                                        <option value="QC">Quebec</option>
+                                        <option value="AB">Alberta</option>
+                                        <option value="BC">British Columbia</option>
+                                        <option value="MB">Manitoba</option>
+                                        <option value="NB">New Brunswick</option>
+                                        <option value="NL">Newfoundland and Labrador</option>
+                                        <option value="NS">Nova Scotia</option>
+                                        <option value="PE">Prince Edward Island</option>
+                                        <option value="SK">Saskatchewan</option>
+                                        <option value="NT">Northwest Territories</option>
+                                        <option value="NU">Nunavut</option>
+                                        <option value="YT">Yukon</option>
                                     </select>
                                 </div>
                             </dl>
@@ -209,32 +251,32 @@ export default function Component({ bId, tFare }) {
                             </label>
                             <label className="block">
                                 <span className="text-gray-700">Card Number:</span>
-                                <input type="text" placeholder="•••• •••• •••• ••••" 
-                                value={cardNumber}
-                                onChange={(e) => setCardNumber(e.target.value)}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                                <input type="text" placeholder="•••• •••• •••• ••••"
+                                    value={cardNumber}
+                                    onChange={(e) => setCardNumber(e.target.value)}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
                             </label>
                             <label className="block">
                                 <span className="text-gray-700">Card Expiration:</span>
-                                <input type="text" placeholder="MM / YYYY" 
-                                value={expDate}
-                                onChange={(e) => setExpDate(e.target.value)}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                                <input type="text" placeholder="MM / YYYY"
+                                    value={expDate}
+                                    onChange={(e) => setExpDate(e.target.value)}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
                             </label>
                             <label className="block">
                                 <span className="text-gray-700">Card CVV:</span>
-                                <input type="text" placeholder="CVV" 
-                                value={cvv}
-                                onChange={(e) => setCvv(e.target.value)}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                                <input type="text" placeholder="CVV"
+                                    value={cvv}
+                                    onChange={(e) => setCvv(e.target.value)}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
                             </label>
                         </div>
                         <label className="block mb-6">
                             <span className="text-gray-700">Zip Code:</span>
-                            <input type="text" placeholder="ex: 12345" 
-                            value={zipCode}
-                            onChange={(e) => setZipCode(e.target.value)}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                            <input type="text" placeholder="ex: 12345"
+                                value={zipCode}
+                                onChange={(e) => setZipCode(e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
                         </label>
                         <div className="bg-gray-100 p-4 rounded-md mb-6">
                             <p className="text-sm text-gray-700">MOBILE OR PRINTED PASS ACCEPTED</p>
@@ -262,9 +304,9 @@ export default function Component({ bId, tFare }) {
                             <input type="checkbox" className="accent-orange-400 rounded mr-2" />
                             <span className="text-sm text-gray-700">Yes, send me information about special offers near me.</span>
                         </div>
-                        <button 
-                        onClick={handlePurchase}
-                        className="bg-blue-600 text-white px-6 py-2 rounded focus:outline-none hover:bg-blue-700 transition-colors">
+                        <button
+                            onClick={handlePurchase}
+                            className="bg-blue-600 text-white px-6 py-2 rounded focus:outline-none hover:bg-blue-700 transition-colors">
                             Purchase here
                         </button>
 
@@ -276,7 +318,7 @@ export default function Component({ bId, tFare }) {
 
             </div>
             {notification && <Notification message={notification.message} type={notification.type} />}
-    
+
         </div>
     );
 }

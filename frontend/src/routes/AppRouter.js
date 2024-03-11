@@ -22,6 +22,7 @@ const AppRouter = () => {
           <Route path="/signup" element={<SignUp/>} />
           <Route path="/about" element={<AboutPage/>} /> 
           <Route path="/vehicles" element={<SavedVehicles/>} />
+          
            
           <Route element={<ProtectedRoutes />}>
             <Route path="/" element={<SignIn/>} />
@@ -29,8 +30,10 @@ const AppRouter = () => {
             <Route path="/admin" element={<AdminPanelHome />} />
             
             <Route path="/home" element={<CustomerPanelHome />} />
-            <Route path="/payment" element={<PaymentPage />} />
+            
             <Route path="/history" element={<BookingPage />} />
+
+            <Route path="/payment" element={<PaymentPage />} />
            
          </Route>
         </Routes>
