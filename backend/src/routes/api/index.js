@@ -5,7 +5,7 @@
 // Date: February 2, 2024
 
 /**
- * The main entry-point for the v1 version of the fragments API.
+ * The main entry-point for the customer version of the parkEase API.
  */
 const express = require('express');
 
