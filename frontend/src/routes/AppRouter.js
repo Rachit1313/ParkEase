@@ -8,6 +8,10 @@ import PaymentPage from '../components/payment';
 import AboutPage from '../components/about';
 import SavedVehicles from '../components/saved_vehicles'
 import Notification from '../components/notification';
+import Ticketing from '../components/ticketing';
+import Support from '../components/customer_support';
+import InvigilatorPanelHome from '../components/invigilator_homepage';
+import AdminDashboard from '../components/admin_dashboard';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProtectedRoutes from './ProtectedRoutes';
@@ -22,7 +26,10 @@ const AppRouter = () => {
           <Route path="/signup" element={<SignUp/>} />
           <Route path="/about" element={<AboutPage/>} /> 
           <Route path="/vehicles" element={<SavedVehicles/>} />
-          
+          <Route path="/ticket" element={<Ticketing/>} />
+          <Route path="/support" element={<Support/>} /> 
+          <Route path="/invigilator/home" element={<InvigilatorPanelHome/>} /> 
+          <Route path="/admin/dashboard" element={<AdminDashboard/>} /> 
            
           <Route element={<ProtectedRoutes />}>
             <Route path="/" element={<SignIn/>} />
