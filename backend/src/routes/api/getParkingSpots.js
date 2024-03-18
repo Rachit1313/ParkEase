@@ -18,7 +18,7 @@ module.exports = (req, res) => {
 
   // Step 2: Query for available spots
   const availableSpotsSql = `
-    SELECT s.SpotID,s.SpotNumber FROM ParkingSpot s
+    SELECT s.SpotID,s.SpotNumber,s.HourlyRate FROM ParkingSpot s
     WHERE s.GarageID = ? AND s.SpotID NOT IN (
       SELECT b.SpotID FROM Booking b
       WHERE b.GarageID = ? AND (
