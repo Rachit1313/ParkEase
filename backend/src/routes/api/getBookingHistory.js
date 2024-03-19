@@ -18,11 +18,12 @@ module.exports = async (req, res) => {
 
     const sql = `
       SELECT 
-        BookingID, CustomerID, GarageID, SpotID, TransactionID, 
-        BookingTime, CheckInTime, CheckOutTime, PaymentAmount, PaymentStatus
-      FROM Booking
-      WHERE CustomerID = ?
-      ORDER BY BookingTime DESC
+        b.BookingID, b.CustomerID, b.GarageID, ps.SpotNumber AS SpotID, b.TransactionID, 
+        b.BookingTime, b.CheckInTime, b.CheckOutTime, b.PaymentAmount, b.PaymentStatus
+      FROM Booking b
+      JOIN ParkingSpot ps ON b.SpotID = ps.SpotID
+      WHERE b.CustomerID = ?
+      ORDER BY b.BookingTime DESC
     `;
 
     db.query(sql, [customerId], (err, results) => {
@@ -37,7 +38,11 @@ module.exports = async (req, res) => {
       }
 
       // Return the booking history as an array of JSON objects
-      res.status(200).json(results);
+      res.status(200).json(results.map(booking => {
+        // Ensure SpotID is returned as a string to match the expected format
+        booking.SpotID = booking.SpotID.toString();
+        return booking;
+      }));
     });
   } catch (err) {
     logger.error('Error in getBookingHistory: ' + err);
