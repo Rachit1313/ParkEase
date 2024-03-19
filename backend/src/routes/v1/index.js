@@ -14,6 +14,7 @@ const router = express.Router();
 
 
 router.get('/employees', require('./getAllEmployees'));
+router.post('/employees',require('./addEmployee'))
 router.get('/customers', require('./getAllCustomers'));
 
 module.exports = router;
