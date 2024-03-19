@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
     const employeeId = req.params.employeeId; // Assuming the employee ID is passed as a parameter in the URL
 
     // Check if the employee exists
-    const checkSql = "SELECT * FROM Invigilator WHERE id = ?";
+    const checkSql = "SELECT * FROM Invigilator WHERE InvigilatorID = ?";
     db.query(checkSql, [employeeId], async (err, results) => {
       if (err) {
         logger.error('Error checking employee:', err);
@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
       }
 
       // If the employee exists, proceed to delete
-      const deleteSql = "DELETE FROM Invigilator WHERE id = ?";
+      const deleteSql = "DELETE FROM Invigilator WHERE InvigilatorID = ?";
       db.query(deleteSql, [employeeId], async (err, ) => {
         if (err) {
           logger.error('Error deleting employee:', err);
