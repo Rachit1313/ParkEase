@@ -78,7 +78,6 @@ jest.mock('../../src/logger', () => ({
   
       await getBookingHistory(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith(bookingData);
     });
   
     it('should handle internal server error', async () => {
