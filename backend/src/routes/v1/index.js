@@ -16,5 +16,6 @@ const router = express.Router();
 router.get('/employees', require('./getAllEmployees'));
 router.post('/employees',require('./addEmployee'))
 router.get('/customers', require('./getAllCustomers'));
+router.delete('/employees/:id', require('./deleteEmployee'));
 
 module.exports = router;
