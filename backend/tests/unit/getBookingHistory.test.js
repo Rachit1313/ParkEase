@@ -81,7 +81,7 @@ jest.mock('../../src/logger', () => ({
     });
   
     it('should handle internal server error', async () => {
-      db.query.mockImplementation((sql, params, callback) => {
+      db.query.mockImplementation(() => {
         throw new Error('Test error');
       });
   
