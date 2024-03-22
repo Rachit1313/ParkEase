@@ -2,7 +2,7 @@
 // ------------------
 // This file contains the deleteEmployee route implementation for the ParkEase project
 
-// Author: Rachit Chawla
+// Author: Heavendeep Kaur Munjal
 // Date: March 19, 2024
 
 const db = require('../../database');

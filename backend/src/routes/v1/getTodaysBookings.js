@@ -2,6 +2,8 @@
 // ------------------
 // This file contains the getTodaysBookings route implementation
 
+// Author: Rachit Chawla
+// Date: March 19, 2024
 const db = require('../../database');
 const logger = require('../../logger');
 
