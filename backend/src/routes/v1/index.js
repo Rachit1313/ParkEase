@@ -19,5 +19,6 @@ router.get('/customers', require('./getAllCustomers'));
 router.delete('/employees/:id', require('./deleteEmployee'));
 router.patch('/employees/:id', require('./updateEmployee'));
 router.get('/bookings/today', require('./getTodaysBookings'));
+router.get('/transactions/monthly-income', require('./getMonthlyIncome'));
 
 module.exports = router;
