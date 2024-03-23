@@ -61,3 +61,24 @@
     flex-direction: column;
     gap: 5px;
 }
+
+.modal-body input[type="text"],
+.modal-body input[type="email"],
+.modal-body input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.modal-body input[type="text"]:focus,
+.modal-body input[type="email"]:focus,
+.modal-body input[type="password"]:focus {
+    border-color: #0044b5;
+    outline: none;
+}
+
+
+

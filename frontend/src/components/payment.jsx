@@ -113,13 +113,15 @@ export default function Component({ bId, tFare }) {
                 showNotification("Payment Sucessful, redirecting ..", "success");
                 navigate('/history')
             } else {
-                console.error("Failed to process payment");
+                response.text().then(errorMessage => {
+                    showNotification('Failed to process payment: ' + errorMessage, 'failure');
+                });
+                
             }
         } catch (error) {
             showNotification("Error during payment processing", "failure");
         }
     };
-
 
     return (
         <div className="flex flex-col h-screen bg-white">

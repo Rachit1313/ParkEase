@@ -12,6 +12,8 @@ import Ticketing from '../components/ticketing';
 import Support from '../components/customer_support';
 import InvigilatorPanelHome from '../components/invigilator_homepage';
 import AdminDashboard from '../components/admin_dashboard';
+import CustomerDetails from '../components/customer_details';
+import DisplayCustomers from '../components/display_customers';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProtectedRoutes from './ProtectedRoutes';
@@ -29,9 +31,9 @@ const AppRouter = () => {
           <Route path="/ticket" element={<Ticketing/>} />
           <Route path="/support" element={<Support/>} /> 
           <Route path="/invigilator/home" element={<InvigilatorPanelHome/>} /> 
-          <Route path="/admin/dashboard" element={<AdminDashboard/>} /> 
-           
+          
           <Route element={<ProtectedRoutes />}>
+
             <Route path="/" element={<SignIn/>} />
            
             <Route path="/admin" element={<AdminPanelHome />} />
@@ -41,6 +43,12 @@ const AppRouter = () => {
             <Route path="/history" element={<BookingPage />} />
 
             <Route path="/payment" element={<PaymentPage />} />
+
+            <Route path="/admin/dashboard" element={<AdminDashboard/>} />
+
+            <Route path="/admin/customer-details/:customerId" element={<CustomerDetails/>}/> 
+          
+            <Route path="/admin/all-customers" element={<DisplayCustomers/>}/>
            
          </Route>
         </Routes>

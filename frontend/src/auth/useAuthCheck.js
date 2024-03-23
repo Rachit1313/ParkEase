@@ -18,7 +18,7 @@ const useAuthCheck = () => {
       } else if (userType === 'Customer' && window.location.pathname.startsWith('/admin')) {
         navigate('/home');
       } else if (userType === 'Admin' && window.location.pathname.startsWith('/home')) {
-        navigate('/admin');
+        navigate('/admin/dashboard');
       }
     };
   

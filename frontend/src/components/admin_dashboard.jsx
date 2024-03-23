@@ -1,23 +1,256 @@
 import { useState, useEffect, useRef } from "react";
+import Notification from "./notification";
+import './css/modal.css'
+import Chart from 'chart.js/auto';
+import { Link } from 'react-router-dom';
 
 export default function Component() {
 
-    const invigilatorsData = [
-        {
-            name: "John Cena",
-            email: "John@gmail.com",
-            phone: "+1-123-456-7890",
-            joinedDate: "22 Sep 23",
-            moreIconLink: "https://file.rendit.io/n/ATwjqzRaR1PZeLxejpe8.svg"
-        },
-        {
-            name: "Silvia Rowe",
-            email: "Silvia@gmail.com",
-            phone: "+1-123-456-7890",
-            joinedDate: "14 Aug 23",
-            moreIconLink: "https://file.rendit.io/n/NaXDA8qx5xGlKMDGgcdB.svg"
+    const [invigilatorsData, setInvigilatorsData] = useState([]);
+    const [notification, setNotification] = useState(null);
+    const [isOpen, setIsOpen] = useState(false); // State to control modal visibility
+    const [fullName, setFullName] = useState('');
+    const [contactNumber, setContactNumber] = useState('');
+    const [employeeId, setEmployeeId] = useState('');
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [addFullName, setAddFullName] = useState('');
+    const [addEmail, setAddEmail] = useState('');
+    const [addContactNumber, setAddContactNumber] = useState('');
+    const [addPassword, setAddPassword] = useState('');
+    const [bookings, setBookings] = useState([]);
+    const [earningsData, setEarningsData] = useState([]);
+
+
+
+    const showNotification = (message, type) => {
+        console.log(message)
+        setNotification({ message, type });
+        setTimeout(() => setNotification(null), 3000);
+    };
+
+
+    const handleOpenModal = () => setIsOpen(true);
+    const handleCloseModal = () => setIsOpen(false);
+    const handleAddModalOpen = () => setIsAddModalOpen(true);
+    const handleAddModalClose = () => setIsAddModalOpen(false);
+
+
+
+    const handleEmployeeUpdate = () => {
+
+        if (!fullName || !contactNumber) {
+            showNotification('Full name and contact number are required.', "failure");
+            return;
         }
-    ];
+
+        if (!employeeId) {
+            showNotification('Employee ID is required.', "failure");
+            return;
+        }
+
+        // Make a PATCH request to update the employee data
+        fetch(`${process.env.REACT_APP_BACKEND_V1_URL}employees/${employeeId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                fullName,
+                contactNumber,
+            }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    fetchInvigilators();
+                    showNotification("Employee data has been updated", "success");
+                    setIsOpen(false);
+                    setFullName("");
+                    setContactNumber("");
+                    setEmployeeId("");
+
+
+                } else {
+                    showNotification("Failed to update employee data", "failure");
+                    throw new Error('Failed to update employee data');
+                }
+            })
+
+    };
+
+    const fetchEarningsData = async () => {
+        try {
+            const response = await fetch(process.env.REACT_APP_BACKEND_V1_URL + 'transactions/monthly-income');
+            if (response.ok) {
+                const data = await response.json();
+                const months = data.map(item => item.month);
+                const amounts = data.map(item => item.totalAmount);
+                setEarningsData({ months, amounts });
+
+
+            } else {
+                console.error('Failed to fetch earnings data');
+            }
+        } catch (error) {
+            console.error('Error fetching earnings data:', error);
+        }
+    };
+
+    
+
+    // Fetch today's bookings data from backend
+    const fetchTodayBookings = async () => {
+        try {
+            const response = await fetch(process.env.REACT_APP_BACKEND_V1_URL + "bookings/today");
+            if (response.ok) {
+                const data = await response.json();
+                setBookings(data);
+            } else {
+                console.error('Failed to fetch today\'s bookings');
+            }
+        } catch (error) {
+            console.error('Error fetching today\'s bookings:', error);
+        }
+    };
+
+
+
+    const handleEdit = (invigilator) => {
+        // Set the employeeId state
+        setEmployeeId(invigilator.InvigilatorID);
+        // Set the default values for fullName and contactNumber
+        setFullName(invigilator.FullName);
+        setContactNumber(invigilator.ContactNumber);
+        // Open the modal
+        setIsOpen(true);
+    };
+
+    const fetchInvigilators = async () => {
+        try {
+            const response = await fetch(process.env.REACT_APP_BACKEND_V1_URL + 'employees');
+            if (response.ok) {
+                const data = await response.json();
+                setInvigilatorsData(data);
+            } else {
+                console.error('Failed to fetch invigilators data');
+            }
+        } catch (error) {
+            console.error('Error fetching invigilators:', error);
+        }
+    };
+
+    useEffect(() => {
+        // Fetch invigilator data from backend
+        fetchInvigilators();
+        // Fetch today's bookings
+        fetchTodayBookings();
+        // Fetch Earnings
+        fetchEarningsData();
+
+        
+
+    }, []);
+
+    useEffect(() => {
+        if (earningsData.months && earningsData.amounts) {
+            console.log(earningsData.months.length)
+            drawChart();
+        }
+    }, [earningsData]);
+
+    const drawChart = () => {
+        const ctx = document.getElementById('earningsChart').getContext('2d');
+        const months = earningsData.months; 
+        const amounts = earningsData.amounts; 
+    
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: months,
+                datasets: [{
+                    label: 'Earnings per Month',
+                    data: amounts,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 50
+                        }
+                    }
+                }
+            }
+        });
+    };
+
+
+    const handleDeleteInvigilator = (id) => {
+
+        fetch(`${process.env.REACT_APP_BACKEND_V1_URL}employees/${id}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    setInvigilatorsData(prevInvigilatorsData => {
+                        return prevInvigilatorsData.filter(invigilator => invigilator.InvigilatorID !== id);
+                    });
+                    showNotification("Employee data has been deleted", "success");
+                } else {
+                    showNotification("Error while deleting employee data", "failure");
+                }
+            })
+            .catch(error => showNotification('Error deleting invigilator:', "failure"));
+    };
+
+    const handleAddEmployee = () => {
+        if (!addEmail || !addPassword || !addContactNumber || !addFullName) {
+            showNotification('Please fill out all fields.', 'failure');
+            return;
+        }
+
+        // Create a new invigilator object with the input field values
+        const newInvigilator = {
+            email: addEmail,
+            password: addPassword,
+            contactNumber: addContactNumber,
+            fullName: addFullName
+        };
+
+        // Make a POST request to add the new invigilator
+        fetch(`${process.env.REACT_APP_BACKEND_V1_URL}employees`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newInvigilator),
+        })
+            .then(response => {
+                if (response.ok) {
+                    showNotification('Invigilator has been added', 'success');
+                    setIsAddModalOpen(false);
+                    fetchInvigilators();
+                    setAddFullName("")
+                    setAddEmail("")
+                    setAddContactNumber("")
+                    setAddPassword("")
+
+                } else {
+                    response.text().then(errorMessage => {
+                        showNotification('Failed to add invigilator: ' + errorMessage, 'failure');
+                    });
+
+                }
+            })
+
+    };
+
+
+
+
 
     return (
         <>
@@ -95,7 +328,7 @@ export default function Component() {
                     </div>
                     <nav>
                         <a href="#" className="block py-4 px-8 text-white font-bold bg-[#0044b5]">Dashboard</a>
-                        <a href="#" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Customers</a>
+                        <Link to="/admin/all-customers" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Customers</Link>
                         <a href="#" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Invigilators</a>
                         <a href="#" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Parking Spots</a>
                         <a href="#" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Ticket Resolution</a>
@@ -118,18 +351,15 @@ export default function Component() {
                         <div className="text-headerText mb-4">
                             <h2 className="text-lg font-semibold">Invigilators</h2>
                         </div>
-                        <div className="bg-recentSectionBackground p-2 mb-4">
-                            <span className="text-headerText">Recent one</span>
-                            {' '}
-                            <span className="font-semibold">John Cena</span>
-                        </div>
+                        <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4" onClick={() => setIsAddModalOpen(true)}>Add Invigilator</button>
+                        <br />
                         <div className="overflow-hidden rounded-md shadow">
                             <div className="bg-tableHeaderBackground px-4 py-2">
                                 <div className="flex justify-between">
-                                    <span className="text-tableHeaderText">Name</span>
-                                    <span className="text-tableHeaderText">Email ID</span>
-                                    <span className="text-tableHeaderText">Phone Number</span>
-                                    <span className="text-tableHeaderText">Joined date</span>
+                                    <span className="text-tableHeaderText w-1/4">Name</span>
+                                    <span className="text-tableHeaderText w-1/4">Email ID</span>
+                                    <span className="text-tableHeaderText w-1/4">Phone Number</span>
+                                    <span className="text-tableHeaderText w-1/4">Actions</span> {/* Add Actions column */}
                                 </div>
                             </div>
                             <div>
@@ -138,17 +368,24 @@ export default function Component() {
                                         key={index}
                                         className={`flex justify-between items-center px-4 py-2 ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
                                     >
-                                        <span className="font-semibold">{invigilator.name}</span>
-                                        <span>{invigilator.email}</span>
-                                        <span>{invigilator.phone}</span>
-                                        <div className="flex items-center">
-                                            <span className="text-listDateColor mr-2">{invigilator.joinedDate}</span>
-                                            <img src={invigilator.moreIconLink} alt="More actions" className="h-4 w-4" />
+                                        <span className="w-1/4">{invigilator.FullName}</span>
+                                        <span className="w-1/4">{invigilator.Email}</span>
+                                        <span className="w-1/4">{invigilator.ContactNumber}</span>
+                                        <div className="flex items-center w-1/4">
+                                            <button className="text-blue-500 mr-2"
+                                                onClick={() => handleEdit(invigilator)}
+                                            >Edit</button>
+                                            <button className="text-red-500"
+                                                onClick={() => handleDeleteInvigilator(invigilator.InvigilatorID)}
+                                            >Delete</button>
                                         </div>
                                     </div>
                                 ))}
                             </div>
+
                         </div>
+
+
                     </div>
                     <br />
                     <div className="flex flex-col bg-white text-gray-900 font-sans p-6">
@@ -157,38 +394,9 @@ export default function Component() {
                             <span className="text-sm text-gray-600">Yearly</span>
                         </div>
                         <div className="flex h-80">
-                            <div className="flex flex-col justify-between mr-4 text-sm">
-                                <span>$1000</span>
-                                <span>$750</span>
-                                <span>$500</span>
-                                <span>$250</span>
-                                <span>$0</span>
-                            </div>
-                            <div className="relative w-full">
-                                <img className="w-full" src="https://file.rendit.io/n/HQVwtryp8STAPLa7xslf.svg" alt="Chart" />
-                                <div className="absolute inset-0 flex items-end justify-between px-2 pb-2">
-                                    <span className="text-xxs">Jan</span>
-                                    <span className="text-xxs">Feb</span>
-                                    <span className="text-xxs">Mar</span>
-                                    <span className="text-xxs">Apr</span>
-                                    <span className="text-xxs">May</span>
-                                    <span className="text-xxs">Jun</span>
-                                    <span className="text-xxs">Jul</span>
-                                    <span className="text-xxs">Aug</span>
-                                    <span className="text-xxs">Sep</span>
-                                    <span className="text-xxs">Oct</span>
-                                    <span className="text-xxs">Nov</span>
-                                    <span className="text-xxs">Dec</span>
-                                </div>
-                                <div className="absolute inset-0 flex">
-                                    {
-                                        // This is just a placeholder for vertical grid lines, actual implementation will vary
-                                        Array.from({ length: 12 }).map((_, idx) => (
-                                            <span key={idx} className="flex-1 border-r border-dashed border-gray-200"></span>
-                                        ))
-                                    }
-                                </div>
-                            </div>
+                            
+                        <canvas id="earningsChart"></canvas>
+
                         </div>
                     </div>
                     <br />
@@ -219,34 +427,105 @@ export default function Component() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className="border-b">
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            A12
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            10th Oct, 4:50PM
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 underline">
-                                            John@gmail.com
-                                        </td>
-                                    </tr>
-                                    <tr className="border-b">
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            A12
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            10th Oct, 4:50PM
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 underline">
-                                            John@gmail.com
-                                        </td>
-                                    </tr>
+                                    {bookings.map((booking, index) => (
+                                        <tr key={index} className="border-b">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                {booking.parkingSpotNumber}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                {booking.checkinTime}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 underline">
+                                                {booking.Email}
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </main>
+                {notification && <Notification message={notification.message} type={notification.type} />}
+
             </div>
+
+            {isOpen && (
+                <div className="modal">
+                    <div className="modal-overlay"></div>
+                    <div className="modal-content modal-centered">
+                        <div className="modal-header">
+                            <h3>Edit Profile</h3>
+                        </div>
+                        <div className="modal-body">
+                            <input
+                                type="text"
+                                placeholder="Name"
+                                value={fullName}
+                                onChange={(e) => setFullName(e.target.value)}
+                            />
+                            <input
+                                type="text"
+                                placeholder="Phone Number"
+                                value={contactNumber}
+                                onChange={(e) => setContactNumber(e.target.value)}
+                            />
+                        </div>
+                        <div className="modal-footer">
+                            <button className="btn btn-primary" onClick={handleEmployeeUpdate}>
+                                Save
+                            </button>
+                            <button className="btn btn-secondary" onClick={handleCloseModal}>
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Add modal */}
+            {isAddModalOpen && (
+                <div className="modal">
+                    <div className="modal-overlay"></div>
+                    <div className="modal-content modal-centered">
+                        <div className="modal-header">
+                            <h3>Add Invigilator</h3>
+                        </div>
+                        <div className="modal-body">
+                            <input
+                                type="text"
+                                placeholder="Name"
+                                value={addFullName} // Add state for name
+                                onChange={(e) => setAddFullName(e.target.value)}
+                            />
+                            <input
+                                type="text"
+                                placeholder="Email"
+                                value={addEmail} // Add state for email
+                                onChange={(e) => setAddEmail(e.target.value)}
+                            />
+                            <input
+                                type="text"
+                                placeholder="Phone Number"
+                                value={addContactNumber} // Add state for phone number
+                                onChange={(e) => setAddContactNumber(e.target.value)}
+                            />
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                value={addPassword} // Add state for password
+                                onChange={(e) => setAddPassword(e.target.value)}
+                            />
+                        </div>
+                        <div className="modal-footer">
+                            <button className="btn btn-primary" onClick={handleAddEmployee}>Save</button>
+                            <button className="btn btn-secondary" onClick={handleAddModalClose}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+
+
         </>
     );
 }
