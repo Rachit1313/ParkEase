@@ -37,21 +37,28 @@ const SignIn = () => {
       });
 
       if (response.ok) {
+        
+        console.log("true ok response")
+        
         const data = await response.json();
         localStorage.setItem("userType", data.userType);
-        Cookies.set('token', data.token, { expires: 1 }); // Expires after 1 day
+        Cookies.set('token', data.token, { expires: 1 }); 
       
-        // Store userDetails separately
+        if(data.userType==='Customer'){
+          // Store userDetails separately
         localStorage.setItem("customerId", data.userDetails.CustomerID);
         localStorage.setItem("email", data.userDetails.Email);
         localStorage.setItem("contactNumber", data.userDetails.ContactNumber);
         localStorage.setItem("fullName", data.userDetails.FullName);
+        }
+
+        
 
         showNotification("Login Successful", "success");
         if (data.userType === "Customer") {
           navigate("/home");
         } else if (data.userType === "Admin") {
-          navigate("/admin");
+          navigate("/admin/dashboard");
         } else {
           navigate("/");
         }

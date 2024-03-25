@@ -114,8 +114,11 @@ export default function Component() {
         if (response.ok) {
           const data = await response.json();
           setGarages(data);
-          setSelectedGarageId(garages[0].GarageID);
-          console.log('selected garage id: '+selectedGarageId)
+          if(garages.length > 0){
+            setSelectedGarageId(garages[0].GarageID);
+            console.log('selected garage id: '+selectedGarageId)
+          }
+          
           
         } else {
           showNotification("Failed to fetch garages", "failure");
