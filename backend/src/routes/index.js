@@ -33,4 +33,5 @@ router.get('/', (req, res) => {
 router.use('/api', require('./api'));
 router.use('/v1', require('./v1'));
 router.use('/v2', require('./v2'));
+router.use('/ticket', require('./ticket'));
 module.exports = router;
