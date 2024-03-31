@@ -456,8 +456,8 @@ export default function Component() {
                                                 {booking.parkingSpotNumber}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            {new Date(booking.CheckInTime).split('T')[0]} <br />
-                                            {new Date(booking.CheckInTime).split('T')[1].slice(0, 5)}
+                                            {booking.CheckInTime.split('T')[0]} <br />
+                                            {booking.CheckInTime.split('T')[1].slice(0, 5)}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 underline">
                                                 {booking.Email}

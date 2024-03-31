@@ -153,12 +153,12 @@ export default function Component() {
                       <td className="py-2 px-4 border-b border-[#001840]">{booking.SpotID}</td>
                       <td className="py-2 px-4 border-b border-[#001840]">{localStorage.getItem("fullName")}</td>
                       <td className="py-2 px-4 border-b border-[#001840]">
-                        {new Date(booking.CheckInTime).split('T')[0]} <br />
-                        {new Date(booking.CheckInTime).split('T')[1].slice(0, 5)}
+                        {(booking.CheckInTime).split('T')[0]} <br />
+                        {(booking.CheckInTime).split('T')[1].slice(0, 5)}
                       </td>
                       <td className="py-2 px-4 border-b border-[#001840]">
-                        {new Date(booking.CheckOutTime).split('T')[0]} <br />
-                        {new Date(booking.CheckOutTime).split('T')[1].slice(0, 5)}
+                        {(booking.CheckOutTime).split('T')[0]} <br />
+                        {(booking.CheckOutTime).split('T')[1].slice(0, 5)}
                       </td>
                       <td className="py-2 px-4 border-b border-[#001840]">{booking.GarageID}</td>
                       <td className="py-2 px-4 border-b border-[#001840]">
