@@ -21,5 +21,7 @@ router.patch('/employees/:id', require('./updateEmployee'));
 router.get('/bookings/today', require('./getTodaysBookings'));
 router.get('/transactions/monthly-income', require('./getMonthlyIncome'));
 router.get('/parking-stats', require('./getParkingStats'));
+router.get('/customer/:customerId', require('./getCustomerById'));
+router.get('/bookings/:bookingId', require('./getBookingById'));
 
 module.exports = router;
