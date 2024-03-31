@@ -86,14 +86,9 @@ export default function Component() {
     // Combine date and time
     const dateTimeString = `${date} ${time}`;
 
-    // Convert to a Moment object in local time zone
-    const localMoment = moment(dateTimeString, 'YYYY-MM-DD HH:mm');
+    const etMoment = moment(dateTimeString, 'YYYY-MM-DD HH:mm');
 
-    // Convert to Eastern Time
-    const etMoment = localMoment.tz('America/New_York');
-
-    // Return the formatted date-time string in Eastern Time
-    return etMoment.format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z';
+    return etMoment.format('YYYY-MM-DDTHH:mm:ss.SSS');
 };
 
 
