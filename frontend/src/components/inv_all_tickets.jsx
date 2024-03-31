@@ -216,7 +216,7 @@ const AdminTicketsPanel = () => {
                                     <h3 className="text-sm font-medium ml-5">Responses:</h3>
                                     {ticket.responses && ticket.responses.map((response, index) => (
                                         <p key={index} className="text-sm text-gray-500 ml-5">
-                                            {response.ResponseText} - <span className="font-normal">{new Date(response.ResponseTime).toLocaleString()}</span>
+                                            {response.ResponseText} - <span className="font-normal">{response.ResponseTime}</span>
                                         </p>
                                     ))}
                                 </div>
