@@ -6,6 +6,7 @@
 // Date - March 26, 2024
 const db = require('../../database');
 const logger = require('../../logger');
+const moment = require('moment-timezone');
 
 module.exports = (req, res) => {
     const { plateNumber } = req.params;
@@ -33,8 +34,9 @@ module.exports = (req, res) => {
 
         const customerId = customerResults[0].CustomerID;
 
+        const estTime = moment().tz('America/New_York'); // Get current time in EST
+        const currentTime = estTime.format('YYYY-MM-DD HH:mm:ss'); // Format to required format
         // Step 2: Check for an active booking for the customer
-        const currentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
         const checkBookingSql = `
             SELECT BookingID
             FROM Booking
