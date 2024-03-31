@@ -150,9 +150,6 @@ export default function Component() {
       return;
     }
 
-    return;
-
-
     try {
       // Make API request to get available spots
       const response = await fetch(process.env.REACT_APP_BACKEND_URL + "available-spots", {
