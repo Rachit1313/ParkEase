@@ -48,8 +48,12 @@ export default function Component() {
 
   // Helper function to calculate time remaining
   const calculateTimeRemaining = (checkoutTime, checkInTime) => {
-    const currentTime = new Date();
+    const estTime = new Date();
 
+    // Get the current time in Eastern Standard Time (EST) as a Date object
+    const estTimeString = estTime.toLocaleString('en-US', { timeZone: 'America/New_York' });
+    const currentTime = new Date(estTimeString);
+    
     if (checkoutTime <= currentTime) {
       return 'Expired';
     }
