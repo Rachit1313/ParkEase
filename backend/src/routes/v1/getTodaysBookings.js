@@ -15,7 +15,7 @@ module.exports = (req, res) => {
             u.Email, 
             b.PaymentAmount AS amount, 
             ps.SpotNumber AS parkingSpotNumber, 
-            b.CheckInTime AS checkinTime
+            DATE_FORMAT(b.CheckInTime, '%Y-%m-%d %h:%i %p') AS checkinTime
         FROM Booking b
         JOIN Users u ON b.CustomerID = u.UserID
         JOIN ParkingSpot ps ON b.SpotID = ps.SpotID
