@@ -2,9 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { faFacebookF, faTwitter, faInstagram, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import moment from 'moment';
-import 'moment-timezone';
-
 
 export default function Component() {
   const [bookingHistory, setBookingHistory] = useState([]);
@@ -47,21 +44,30 @@ export default function Component() {
     window.location.href = '/vehicles';
   };
 
-// Assuming moment-timezone is correctly installed and imported
-const moment = require('moment-timezone');
+// Helper function to manually parse datetime string in 'YYYY-MM-DDTHH:mm:ss' format
+const parseDateTimeString = (dateTimeString) => {
+  const [datePart, timePart] = dateTimeString.split('T');
+  const [year, month, day] = datePart.split('-').map(num => parseInt(num, 10));
+  const [hour, minute, second] = timePart.split(':').map(num => parseInt(num, 10));
+
+  // Note: Months are 0-indexed in JavaScript Date (0 = January, 11 = December)
+  // Adjusting month by subtracting 1
+  return new Date(year, month - 1, day, hour, minute, second);
+};
 
 // Helper function to calculate time remaining
 const calculateTimeRemaining = (checkoutTimeString, checkInTimeString) => {
-  const checkInTime = moment.tz(checkInTimeString, 'YYYY-MM-DDTHH:mm:ss', 'America/New_York');
-  const checkoutTime = moment.tz(checkoutTimeString, 'YYYY-MM-DDTHH:mm:ss', 'America/New_York');
+  const checkInTime = parseDateTimeString(checkInTimeString);
+  const checkoutTime = parseDateTimeString(checkoutTimeString);
 
-  console.log("checkIn: " + checkInTime.format());
-  console.log("checkOut: " + checkoutTime.format());
+  console.log("checkIn: " + checkInTime);
+  console.log("checkOut: " + checkoutTime);
 
-  // Current time in Eastern Time Zone using Moment.js
-  const currentTime = moment.tz('America/New_York');
+  // Current time in Eastern Time Zone
+  // Note: This will be in the server's local timezone. Adjust if necessary.
+  const currentTime = new Date();
 
-  console.log("Current time (ET):", currentTime.format());
+  console.log("Current time (ET):", currentTime);
 
   if (checkoutTime <= currentTime) {
     return 'Expired';
@@ -71,7 +77,7 @@ const calculateTimeRemaining = (checkoutTimeString, checkInTimeString) => {
     return 'Not started';
   }
 
-  const remainingTimeMillis = checkoutTime.diff(currentTime);
+  const remainingTimeMillis = checkoutTime - currentTime;
 
   const hours = Math.floor(remainingTimeMillis / (1000 * 60 * 60));
   const minutes = Math.floor((remainingTimeMillis % (1000 * 60 * 60)) / (1000 * 60));
