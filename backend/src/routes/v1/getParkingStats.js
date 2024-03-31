@@ -24,6 +24,7 @@ module.exports = (req, res) => {
             FROM Booking
             WHERE CheckInTime <= ?
             AND (CheckOutTime IS NULL OR CheckOutTime >= ?)
+            AND PaymentStatus = "Paid"
         `;
 
         db.query(bookedSpotsSql, [currentTime, currentTime], (err, bookedResults) => {

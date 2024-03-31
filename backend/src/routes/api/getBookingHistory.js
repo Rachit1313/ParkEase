@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
         b.BookingTime, b.CheckInTime, b.CheckOutTime, b.PaymentAmount, b.PaymentStatus
       FROM Booking b
       JOIN ParkingSpot ps ON b.SpotID = ps.SpotID
-      WHERE b.CustomerID = ?
+      WHERE b.CustomerID = ? AND b.PaymentStatus = "Paid"
       ORDER BY b.BookingTime DESC
     `;
 

@@ -40,6 +40,7 @@ module.exports = (req, res) => {
             FROM Booking
             WHERE CustomerID = ?
             AND CheckInTime <= ?
+            AND PaymentStatus = "Paid"
             AND (CheckOutTime IS NULL OR CheckOutTime >= ?)
         `;
 

@@ -21,7 +21,7 @@ module.exports = (req, res) => {
     SELECT s.SpotID,s.SpotNumber,s.HourlyRate FROM ParkingSpot s
     WHERE s.GarageID = ? AND s.SpotID NOT IN (
       SELECT b.SpotID FROM Booking b
-      WHERE b.GarageID = ? AND (
+      WHERE b.GarageID = ? AND b.PaymentStatus = "Paid" AND (
         (b.CheckInTime < ? AND b.CheckOutTime > ?) OR
         (b.CheckInTime < ? AND b.CheckOutTime > ?) OR
         (b.CheckInTime >= ? AND b.CheckOutTime <= ?)
