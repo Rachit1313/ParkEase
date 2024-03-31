@@ -19,7 +19,7 @@ module.exports = (req, res) => {
         FROM Booking b
         JOIN Users u ON b.CustomerID = u.UserID
         JOIN ParkingSpot ps ON b.SpotID = ps.SpotID
-        WHERE DATE(b.BookingTime) = ? AND AND b.PaymentStatus = "Paid"
+        WHERE DATE(b.BookingTime) = ? AND b.PaymentStatus = "Paid"
     `;
 
     db.query(query, [today], (err, results) => {
