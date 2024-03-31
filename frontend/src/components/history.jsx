@@ -47,20 +47,21 @@ export default function Component() {
     window.location.href = '/vehicles';
   };
 
-  // Helper function to calculate time remaining
+// Assuming moment-timezone is correctly installed and imported
+const moment = require('moment-timezone');
+
+// Helper function to calculate time remaining
 const calculateTimeRemaining = (checkoutTimeString, checkInTimeString) => {
- 
-  const checkInTime = moment.tz(checkInTimeString, 'YYYY-MM-DDTHH:mm:ss', 'America/New_York').toDate();
-  const checkoutTime = moment.tz(checkoutTimeString, 'YYYY-MM-DDTHH:mm:ss', 'America/New_York').toDate();
+  const checkInTime = moment.tz(checkInTimeString, 'YYYY-MM-DDTHH:mm:ss', 'America/New_York');
+  const checkoutTime = moment.tz(checkoutTimeString, 'YYYY-MM-DDTHH:mm:ss', 'America/New_York');
 
-  console.log("checkIn: "+ checkInTime)
-  console.log("checkOut: "+ checkoutTime)
+  console.log("checkIn: " + checkInTime.format());
+  console.log("checkOut: " + checkoutTime.format());
 
+  // Current time in Eastern Time Zone using Moment.js
+  const currentTime = moment.tz('America/New_York');
 
-  // Current time in Eastern Time Zone
-  const currentTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
-
-  console.log("Current time (ET):", currentTime);
+  console.log("Current time (ET):", currentTime.format());
 
   if (checkoutTime <= currentTime) {
     return 'Expired';
@@ -70,7 +71,7 @@ const calculateTimeRemaining = (checkoutTimeString, checkInTimeString) => {
     return 'Not started';
   }
 
-  const remainingTimeMillis = checkoutTime - currentTime;
+  const remainingTimeMillis = checkoutTime.diff(currentTime);
 
   const hours = Math.floor(remainingTimeMillis / (1000 * 60 * 60));
   const minutes = Math.floor((remainingTimeMillis % (1000 * 60 * 60)) / (1000 * 60));
