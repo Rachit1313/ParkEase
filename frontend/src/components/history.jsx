@@ -167,7 +167,7 @@ export default function Component() {
                       </td>
                       <td className="py-2 px-4 border-b border-[#001840]">{booking.GarageID}</td>
                       <td className="py-2 px-4 border-b border-[#001840]">
-                        {calculateTimeRemaining((booking.CheckOutTime),(booking.CheckInTime))}
+                        {calculateTimeRemaining(new Date(booking.CheckOutTime),new Date(booking.CheckInTime))}
                       </td>
                     </tr>
                   ))}
