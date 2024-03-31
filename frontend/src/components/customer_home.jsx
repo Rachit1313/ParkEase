@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import Notification from "./notification";
+import moment from 'moment-timezone';
 
 function FeatureSection({ title, description, imgSrc }) {
   return (
@@ -31,46 +32,46 @@ export default function Component() {
   const [notification, setNotification] = useState(null);
 
   const showNotification = (message, type) => {
-      console.log(message)
-      setNotification({ message, type }); 
-      setTimeout(() => setNotification(null), 3000);
+    console.log(message)
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
   };
-    const handleAccountClick = () => {
-        setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown visibility
-    };
+  const handleAccountClick = () => {
+    setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown visibility
+  };
 
 
-    const handleLogout = async () => {
-        try {
-            Cookies.remove('token');
+  const handleLogout = async () => {
+    try {
+      Cookies.remove('token');
 
-            localStorage.removeItem('userType');
-            localStorage.removeItem('customerId');
-            localStorage.removeItem('email');
-            localStorage.removeItem('contactNumber');
-            localStorage.removeItem('fullName');
+      localStorage.removeItem('userType');
+      localStorage.removeItem('customerId');
+      localStorage.removeItem('email');
+      localStorage.removeItem('contactNumber');
+      localStorage.removeItem('fullName');
 
 
-            window.location.href = '/';
+      window.location.href = '/';
 
-        } catch (error) {
-            console.error('Error during logout:', error);
+    } catch (error) {
+      console.error('Error during logout:', error);
 
-        }
-    };
+    }
+  };
 
-    useEffect(() => {
-      document.title = "Home";
-      const favicon = document.querySelector("link[rel*='icon']") || document.createElement('link');
-        favicon.type = 'image/png';
-        favicon.rel = 'icon';
-        favicon.href = "https://file.rendit.io/n/Sdx696lWt20H3dmB4Qmz.png";
-        document.head.appendChild(favicon);
-    }, []);
+  useEffect(() => {
+    document.title = "Home";
+    const favicon = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    favicon.type = 'image/png';
+    favicon.rel = 'icon';
+    favicon.href = "https://file.rendit.io/n/Sdx696lWt20H3dmB4Qmz.png";
+    document.head.appendChild(favicon);
+  }, []);
 
-    const handleManageVehicles = () => {
-        window.location.href = '/vehicles'; 
-    };
+  const handleManageVehicles = () => {
+    window.location.href = '/vehicles';
+  };
 
 
   // Update the selected spot when the user selects a spot from the dropdown
@@ -80,19 +81,23 @@ export default function Component() {
     setSelectedSpot(selectedSpotInfo);
   };
 
+  
   const formatDateTime = (date, time) => {
-    
-    // Combine date and time with a separator
-    const dateTimeString = `${date}T${time}`;
+    // Combine date and time
+    const dateTimeString = `${date} ${time}`;
 
-    // Create a string in the desired format
-    const formattedDateTime = `${dateTimeString}:00.000`;
+    // Convert to a Moment object in local time zone
+    const localMoment = moment(dateTimeString, 'YYYY-MM-DD HH:mm');
 
-    return formattedDateTime;
+    // Convert to Eastern Time
+    const etMoment = localMoment.tz('America/New_York');
+
+    // Return the formatted date-time string in Eastern Time
+    return etMoment.format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z';
 };
-  
-  
-  
+
+
+
 
   useEffect(() => {
     if (selectedGarageId && checkInDate && checkInTime && checkOutDate && checkOutTime) {
@@ -114,12 +119,12 @@ export default function Component() {
         if (response.ok) {
           const data = await response.json();
           setGarages(data);
-          if(garages.length > 0){
+          if (garages.length > 0) {
             setSelectedGarageId(garages[0].GarageID);
-            console.log('selected garage id: '+selectedGarageId)
+            console.log('selected garage id: ' + selectedGarageId)
           }
-          
-          
+
+
         } else {
           showNotification("Failed to fetch garages", "failure");
         }
@@ -131,21 +136,23 @@ export default function Component() {
     fetchGarages();
   }, []);
 
-  const displaySpots = async() => {
-    
-    
+  const displaySpots = async () => {
+
+
     // Format check-in and check-out times
     const formattedCheckInTime = formatDateTime(checkInDate, checkInTime);
     const formattedCheckOutTime = formatDateTime(checkOutDate, checkOutTime);
 
-    console.log("Check in: "+ formattedCheckInTime)
-    console.log("Check out: "+ formattedCheckOutTime)
+    console.log("Check in: " + formattedCheckInTime)
+    console.log("Check out: " + formattedCheckOutTime)
 
-    if(!formattedCheckInTime || !formattedCheckOutTime){
+    if (!formattedCheckInTime || !formattedCheckOutTime) {
       return;
     }
 
-   
+    return;
+
+
     try {
       // Make API request to get available spots
       const response = await fetch(process.env.REACT_APP_BACKEND_URL + "available-spots", {
@@ -166,23 +173,23 @@ export default function Component() {
         console.log(data)
       } else {
         showNotification("Failed to fetch available spots", "failure");
-        
+
       }
     } catch (error) {
       showNotification("Error during available spots fetch", "failure");
-      
+
     }
   }
 
   const handleBookNow = async () => {
     // Check if the user is sure to proceed to payment
     const proceedToPayment = window.confirm("Are you sure you want to proceed to payment?");
-  
+
     if (proceedToPayment) {
       const storedCustomerId = localStorage.getItem("customerId");
       const formattedCheckInTime = formatDateTime(checkInDate, checkInTime);
       const formattedCheckOutTime = formatDateTime(checkOutDate, checkOutTime);
-      
+
       try {
         // Make API request to create a new booking
         const createBookingResponse = await fetch(process.env.REACT_APP_BACKEND_URL + "create-booking", {
@@ -198,15 +205,15 @@ export default function Component() {
             checkOutTime: formattedCheckOutTime,
           }),
         });
-  
+
         if (createBookingResponse.ok) {
           const bookingData = await createBookingResponse.json();
-  
-         
-          console.log('bookingId: '+bookingData.bookingId)
-          console.log('fare: '+bookingData.totalFare)
 
-         
+
+          console.log('bookingId: ' + bookingData.bookingId)
+          console.log('fare: ' + bookingData.totalFare)
+
+
 
           var taxDeduct = bookingData.totalFare * 0.2;
           var finalFare = bookingData.totalFare + taxDeduct;
@@ -216,7 +223,7 @@ export default function Component() {
 
           localStorage.setItem('bookingId', bookingData.bookingId);
           localStorage.setItem('totalFare', finalFare);
-         
+
 
 
           // Redirect user to /payment and pass bookingId and totalFare as props
@@ -228,18 +235,18 @@ export default function Component() {
           });
         } else {
           showNotification("Failed to create a new booking", "failure");
-          
+
         }
       } catch (error) {
-        showNotification("Error during booking creation\n"+error, "failure");
-        
+        showNotification("Error during booking creation\n" + error, "failure");
+
       }
     } else {
-      
+
     }
   };
-  
-  
+
+
 
 
 
@@ -263,23 +270,26 @@ export default function Component() {
             <Link to="/about">About Us</Link>
           </li>
           <li className="mt-2">
-                        <button
-                            className="rounded-lg bg-blue-800 text-white px-6 py-1.5 text-lg transition duration-300 ease-in-out hover:bg-blue-900"
-                            onClick={handleAccountClick}
-                        >
-                            My Account
-                        </button>
-                        {isDropdownOpen && ( // Conditionally render dropdown items
-                            <ul className="absolute right-0 mt-2 shadow-md rounded-md bg-white overflow-hidden">
-                                <li className="hover:bg-gray-100 px-4 py-2">
-                                    <button onClick={handleLogout}>Logout</button>
-                                </li>
-                                <li className="hover:bg-gray-100 px-4 py-2">
-                                    <button onClick={handleManageVehicles}>Manage Vehicles</button>
-                                </li>
-                            </ul>
-                        )}
-                    </li>
+            <Link to="/ticket">Ticket</Link>
+          </li>
+          <li className="mt-2">
+            <button
+              className="rounded-lg bg-blue-800 text-white px-6 py-1.5 text-lg transition duration-300 ease-in-out hover:bg-blue-900"
+              onClick={handleAccountClick}
+            >
+              My Account
+            </button>
+            {isDropdownOpen && ( // Conditionally render dropdown items
+              <ul className="absolute right-0 mt-2 shadow-md rounded-md bg-white overflow-hidden">
+                <li className="hover:bg-gray-100 px-4 py-2">
+                  <button onClick={handleLogout}>Logout</button>
+                </li>
+                <li className="hover:bg-gray-100 px-4 py-2">
+                  <button onClick={handleManageVehicles}>Manage Vehicles</button>
+                </li>
+              </ul>
+            )}
+          </li>
         </ul>
 
       </div>
@@ -379,13 +389,13 @@ export default function Component() {
 
             <div className="w-full mt-10">
 
-            {selectedSpot ? (
-        <button className="bg-gray-300 text-black font-bold text-lg rounded-lg p-3 ml-3 cursor-not-allowed" style={{ pointerEvents: 'none' }}>
-          <span>Rate: ${selectedSpot.HourlyRate}/hour</span>
-        </button>
-      ) : (
-        <div className="text-gray-500">Please select a parking spot</div>
-      )}
+              {selectedSpot ? (
+                <button className="bg-gray-300 text-black font-bold text-lg rounded-lg p-3 ml-3 cursor-not-allowed" style={{ pointerEvents: 'none' }}>
+                  <span>Rate: ${selectedSpot.HourlyRate}/hour</span>
+                </button>
+              ) : (
+                <div className="text-gray-500">Please select a parking spot</div>
+              )}
 
 
 
@@ -529,7 +539,7 @@ export default function Component() {
         </div>
       </div>
       {notification && <Notification message={notification.message} type={notification.type} />}
-    
+
     </div>
   );
 }

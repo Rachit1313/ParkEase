@@ -149,6 +149,9 @@ export default function Component() {
                     <li className="mt-2">
                         <Link to="/history">History</Link>
                     </li>
+                    <li className="mt-2">
+            <Link to="/ticket">Ticket</Link>
+          </li>
 
                     <li className="mt-2">
                         <button

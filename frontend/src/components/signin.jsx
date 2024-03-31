@@ -9,6 +9,11 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [notification, setNotification] = useState(null);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const handleTogglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
 
     const showNotification = (message, type) => {
         console.log(message)
@@ -51,15 +56,30 @@ const SignIn = () => {
         localStorage.setItem("contactNumber", data.userDetails.ContactNumber);
         localStorage.setItem("fullName", data.userDetails.FullName);
         }
-
-        
+        else if(data.userType==='Admin'){
+          // Store adminDetails separately
+         localStorage.setItem("AdminID", data.userDetails.AdminID);
+         localStorage.setItem("Email", data.userDetails.Email);
+         localStorage.setItem("ContactNumber", data.userDetails.ContactNumber);
+         localStorage.setItem("FullName", data.userDetails.FullName);
+        }else if(data.userType==='Invigilator'){
+          // Store adminDetails separately
+         localStorage.setItem("InvigilatorID", data.userDetails.InvigilatorID);
+         localStorage.setItem("Email", data.userDetails.Email);
+         localStorage.setItem("ContactNumber", data.userDetails.ContactNumber);
+         localStorage.setItem("FullName", data.userDetails.FullName);
+        }
 
         showNotification("Login Successful", "success");
+        
         if (data.userType === "Customer") {
           navigate("/home");
         } else if (data.userType === "Admin") {
           navigate("/admin/dashboard");
-        } else {
+        } else if(data.userType==='Invigilator'){
+          navigate("/invigilator/home");
+        }
+        else {
           navigate("/");
         }
       } else {
@@ -100,13 +120,22 @@ const SignIn = () => {
             <div className="bg-gray-100 p-2 flex items-center rounded-md">
               <img src="https://file.rendit.io/n/iB9EiiaEf7FeyQnfKfQq.svg" alt="Password" className="h-6 w-6" />
               <input
-                type="password"
+                type={isPasswordVisible ? "text" : "password"}
                 placeholder="Enter your password"
                 className="bg-transparent flex-1 p-2 text-sm outline-none"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <img src="https://file.rendit.io/n/Usxun2AAYCbs4iyMnAIN.svg" alt="Visibility" className="h-6 w-6" />
+              <img 
+                src={
+                  isPasswordVisible
+                    ? "https://file.rendit.io/n/ikHzgSwQg6BhPIGl8uJj.svg"
+                    : "https://file.rendit.io/n/ikHzgSwQg6BhPIGl8uJj.svg" 
+                }
+                alt="View Password Icon"
+                className="h-6 w-6 cursor-pointer"
+                onClick={handleTogglePasswordVisibility}
+              />
             </div>
           </div>
           <div className="flex justify-between items-center mb-4">

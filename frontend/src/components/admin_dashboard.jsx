@@ -3,6 +3,8 @@ import Notification from "./notification";
 import './css/modal.css'
 import Chart from 'chart.js/auto';
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 export default function Component() {
 
@@ -19,6 +21,38 @@ export default function Component() {
     const [addPassword, setAddPassword] = useState('');
     const [bookings, setBookings] = useState([]);
     const [earningsData, setEarningsData] = useState([]);
+    const [adminFullName, setAdminFullName] = useState('Admin');
+    const navigate = useNavigate();
+    const [parkingStats, setParkingStats] = useState({
+        totalSpots: 'Loading...',
+        availableSpots: 'Loading...',
+        bookedSpots: 'Loading...'
+    });
+
+    useEffect(() => {
+        // Adjust the URL as needed based on your API's structure
+        fetch(process.env.REACT_APP_BACKEND_V1_URL + '/parking-stats')
+            .then(response => response.json())
+            .then(data => {
+                setParkingStats({
+                    totalSpots: data.totalSpots,
+                    availableSpots: data.availableSpots,
+                    bookedSpots: data.bookedSpots
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching parking stats:', error);
+                // Handle error, maybe set some error message in state to show in UI
+            });
+    }, []);
+
+    useEffect(() => {
+        // Retrieve the full name from localStorage and update the state
+        const storedFullName = localStorage.getItem('FullName');
+        if (storedFullName) {
+            setAdminFullName(storedFullName);
+        }
+    }, []);
 
 
 
@@ -95,7 +129,7 @@ export default function Component() {
         }
     };
 
-    
+
 
     // Fetch today's bookings data from backend
     const fetchTodayBookings = async () => {
@@ -138,6 +172,22 @@ export default function Component() {
         }
     };
 
+    const handleLogout = () => {
+        
+        // Remove specific items from localStorage
+        localStorage.removeItem("AdminID");
+        localStorage.removeItem("Email");
+        localStorage.removeItem("ContactNumber");
+        localStorage.removeItem("FullName");
+
+        Cookies.remove('token');
+        
+        // Navigate to /signin
+        navigate('/');
+
+        
+    };
+
     useEffect(() => {
         // Fetch invigilator data from backend
         fetchInvigilators();
@@ -146,7 +196,7 @@ export default function Component() {
         // Fetch Earnings
         fetchEarningsData();
 
-        
+
 
     }, []);
 
@@ -159,9 +209,9 @@ export default function Component() {
 
     const drawChart = () => {
         const ctx = document.getElementById('earningsChart').getContext('2d');
-        const months = earningsData.months; 
-        const amounts = earningsData.amounts; 
-    
+        const months = earningsData.months;
+        const amounts = earningsData.amounts;
+
         new Chart(ctx, {
             type: 'bar',
             data: {
@@ -267,49 +317,18 @@ export default function Component() {
                     </div>
 
                     {/* Notification and Settings */}
-                    <div className="flex items-center space-x-3">
-                        <img
-                            src="https://file.rendit.io/n/ul79kRkju1tnPuMHMVEa.svg"
-                            alt="Notification Bell Icon"
-                            className="h-6 w-6"
-                        />
-                        <img
-                            src="https://file.rendit.io/n/R3xTczwIDy8xj13Znh49.svg"
-                            alt="Settings Cog Icon"
-                            className="h-6 w-6"
-                        />
+                    <div className="flex items-center space-x-3 mr-5">
 
                         <img
                             src="https://file.rendit.io/n/cezRbURLsp1Dgk7DiXTi.svg"
                             alt="Logout Icon"
                             className="h-6 w-6"
+                            onClick={handleLogout}
                         />
                     </div>
                 </div>
 
-                {/* Social Media Links */}
-                <div className="flex justify-end space-x-3 p-4">
-                    <img
-                        src="https://file.rendit.io/n/a3RqSyuTxOmKFfCkQR6X.svg"
-                        alt="Facebook Icon"
-                        className="h-4 w-4"
-                    />
-                    <img
-                        src="https://file.rendit.io/n/OKd9e7Xg8qUVRwoP8PiF.svg"
-                        alt="Blog Icon"
-                        className="h-4 w-4"
-                    />
-                    <img
-                        src="https://file.rendit.io/n/jyT1mJlCaX3c0lxn3Unr.svg"
-                        alt="Twitter Icon"
-                        className="h-4 w-4"
-                    />
-                    <img
-                        src="https://file.rendit.io/n/wQCmpw7o42V86PiorxYp.svg"
-                        alt="YouTube Icon"
-                        className="h-4 w-4"
-                    />
-                </div>
+
             </div>
 
 
@@ -317,32 +336,36 @@ export default function Component() {
                 <aside className="flex flex-col w-1/4 p-8 bg-white">
                     <div className="flex items-center mb-16">
                         <img
-                            src="https://file.rendit.io/n/l0Mp9QqX9mIz0oSMwX6V.png"
+                            src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
                             alt="User"
                             className="w-20 h-20 rounded-full mr-4"
                         />
                         <div>
                             <h2 className="text-base text-[#888888]">Welcome,</h2>
-                            <h1 className="text-xl font-bold">Louis Pierce</h1>
+                            <h1 className="text-xl font-bold">{adminFullName}</h1>
                         </div>
                     </div>
                     <nav>
                         <a href="#" className="block py-4 px-8 text-white font-bold bg-[#0044b5]">Dashboard</a>
                         <Link to="/admin/all-customers" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Customers</Link>
-                        <a href="#" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Invigilators</a>
+                        <Link to="/admin/all-invigilators" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Invigilators</Link>
                         <a href="#" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Parking Spots</a>
-                        <a href="#" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Ticket Resolution</a>
+                        <Link to="/admin/all-tickets" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Ticket Resolution</Link>
                         <a href="#" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Transactions</a>
                     </nav>
                 </aside>
                 <main className="flex-1 p-8">
                     <div className="grid grid-cols-3 gap-4">
                         <div className="flex flex-col justify-between p-4 bg-[#7ED1FF] text-white rounded-lg h-36">
-                            <span className="text-4xl font-bold">20</span>
+                            <span className="text-4xl font-bold">{parkingStats.totalSpots}</span>
                             <span className="font-semibold">Total parking slots</span>
                         </div>
-                        <div className="flex flex-col justify-between p-4 bg-[#5BB55B] text-white rounded-lg h-36 col-span-2">
-                            <span className="text-3xl font-bold">18K</span>
+                        <div className="flex flex-col justify-between p-4 bg-[#7ED1FF] text-white rounded-lg h-36">
+                            <span className="text-4xl font-bold">{parkingStats.bookedSpots}</span>
+                            <span className="font-semibold">Booked parking slots</span>
+                        </div>
+                        <div className="flex flex-col justify-between p-4 bg-[#5BB55B] text-white rounded-lg h-36">
+                            <span className="text-3xl font-bold">{parkingStats.availableSpots}</span>
                             <span className="font-semibold">Available parking slots</span>
                         </div>
                     </div>
@@ -363,7 +386,7 @@ export default function Component() {
                                 </div>
                             </div>
                             <div>
-                                {invigilatorsData.map((invigilator, index) => (
+                                {invigilatorsData.slice(0, 5).map((invigilator, index) => (
                                     <div
                                         key={index}
                                         className={`flex justify-between items-center px-4 py-2 ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
@@ -382,8 +405,8 @@ export default function Component() {
                                     </div>
                                 ))}
                             </div>
-
                         </div>
+
 
 
                     </div>
@@ -394,8 +417,8 @@ export default function Component() {
                             <span className="text-sm text-gray-600">Yearly</span>
                         </div>
                         <div className="flex h-80">
-                            
-                        <canvas id="earningsChart"></canvas>
+
+                            <canvas id="earningsChart"></canvas>
 
                         </div>
                     </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const CustomerDetails = () => {
     
@@ -7,6 +8,7 @@ const CustomerDetails = () => {
     const [customers, setCustomers] = useState([]);
     const [customer, setCustomer] = useState([]);
     const [pastBookings, setPastBookings] = useState([]);
+    const navigate = useNavigate()
 
     useEffect(() => {
 
@@ -59,38 +61,58 @@ const CustomerDetails = () => {
     }, [customerId, customers]);
 
    
+    const handleLogout = () => {
+        // Navigate to /signin
+        navigate('/');
+
+        // Remove specific items from localStorage
+        localStorage.removeItem("AdminID");
+        localStorage.removeItem("Email");
+        localStorage.removeItem("ContactNumber");
+        localStorage.removeItem("FullName");
+    };
+
+    const goBack = () => {
+        navigate('/admin/all-customers')
+    }
 
 
     
     return (
         <>
 
-            <div className="p-4 flex justify-between items-center bg-white border-b shadow-sm">
-                <img
-                    src="https://file.rendit.io/n/Sdx696lWt20H3dmB4Qmz.png"
-                    alt="Logo"
-                    className="h-10"
-                />
-                <ul className="flex justify-end gap-16">
-                    <li className="mt-2 relative">
-                        <span className="font-bold text-blue-800">Customer Details</span>
-                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-800"></span>
-                    </li>
-                    <li className="mt-2">
-                        <button
-                            className="rounded-lg bg-blue-800 text-white px-6 py-1.5 text-lg transition duration-300 ease-in-out hover:bg-blue-900"
-                        >
-                            My Account
-                        </button>
+<div className="bg-white">
+                <div className="flex justify-between items-center p-4">
+                    {/* Header Contact Information */}
+                    <div className="flex items-center space-x-4">
+                        <img
+                            src="https://file.rendit.io/n/caJnSADVuRIw9pBQkNld.png"
+                            alt="Company Logo"
+                            className="h-12"
+                        />
+                    </div>
 
-                    </li>
-                </ul>
+                    {/* Notification and Settings */}
+                    <div className="flex items-center space-x-3 mr-5">
+
+                        <img
+                            src="https://file.rendit.io/n/cezRbURLsp1Dgk7DiXTi.svg"
+                            alt="Logout Icon"
+                            className="h-6 w-6"
+                            onClick={handleLogout}
+                        />
+                    </div>
+                </div>
+
 
             </div>
+            <br/><br/>
 
+            <button className="bg-green-500 text-white px-4 py-2 rounded-md mt-4 ml-4" onClick={() => goBack()}>Go Back</button>
+                
+            <br/><br/><br/> 
 
-
-            <div className="flex">
+            <div className="flex ml-5">
 
 
 
@@ -116,7 +138,7 @@ const CustomerDetails = () => {
 
 
                 {/* Right side: Past bookings */}
-                <div className="w-1/2 p-4">
+                <div className="w-1/2 p-4 mr-5">
                     <h2 className="text-2xl font-semibold mb-4">Past Bookings</h2>
                     <table className="min-w-full">
                         <thead className="bg-gray-200 border-b">
