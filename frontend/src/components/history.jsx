@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { faFacebookF, faTwitter, faInstagram, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import moment from 'moment';
+import 'moment-timezone';
 
 
 export default function Component() {
@@ -45,31 +47,36 @@ export default function Component() {
     window.location.href = '/vehicles';
   };
 
-
   // Helper function to calculate time remaining
-  const calculateTimeRemaining = (checkoutTime, checkInTime) => {
-   
-    // Current time in Eastern Time Zone
-    const currentTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
-  
-    console.log("Current time (ET):", currentTime);
-  
-    if (checkoutTime <= currentTime) {
-      return 'Expired';
-    }
-  
-    if (checkInTime > currentTime) {
-      return 'Not started';
-    }
+const calculateTimeRemaining = (checkoutTimeString, checkInTimeString) => {
+ 
+  const checkInTime = moment.tz(checkInTimeString, 'YYYY-MM-DDTHH:mm:ss', 'America/New_York').toDate();
+  const checkoutTime = moment.tz(checkoutTimeString, 'YYYY-MM-DDTHH:mm:ss', 'America/New_York').toDate();
 
-    const remainingTimeMillis = checkoutTime - currentTime;
-    console.log(`remaining ${remainingTimeMillis} = ${checkoutTime} - ${currentTime}`);
-  
-    const hours = Math.floor(remainingTimeMillis / (1000 * 60 * 60));
-    const minutes = Math.floor((remainingTimeMillis % (1000 * 60 * 60)) / (1000 * 60));
-  
-    return `${hours}hr ${minutes}min`;
-  };
+  console.log("checkIn: "+ checkInTime)
+  console.log("checkOut: "+ checkoutTime)
+
+
+  // Current time in Eastern Time Zone
+  const currentTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
+
+  console.log("Current time (ET):", currentTime);
+
+  if (checkoutTime <= currentTime) {
+    return 'Expired';
+  }
+
+  if (checkInTime > currentTime) {
+    return 'Not started';
+  }
+
+  const remainingTimeMillis = checkoutTime - currentTime;
+
+  const hours = Math.floor(remainingTimeMillis / (1000 * 60 * 60));
+  const minutes = Math.floor((remainingTimeMillis % (1000 * 60 * 60)) / (1000 * 60));
+
+  return `${hours}hr ${minutes}min`;
+};
 
   useEffect(() => {
     const fetchBookingHistory = async () => {
