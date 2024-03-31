@@ -181,7 +181,7 @@ const calculateTimeRemaining = (checkoutTimeString, checkInTimeString) => {
                       </td>
                       <td className="py-2 px-4 border-b border-[#001840]">{booking.GarageID}</td>
                       <td className="py-2 px-4 border-b border-[#001840]">
-                        {calculateTimeRemaining(new Date(booking.CheckOutTime),new Date(booking.CheckInTime))}
+                      {calculateTimeRemaining(booking.CheckOutTime, booking.CheckInTime)}
                       </td>
                     </tr>
                   ))}
