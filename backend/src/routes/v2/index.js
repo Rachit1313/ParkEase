@@ -13,5 +13,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/validate-booking/:plateNumber', require('./validateBooking'));
+router.get('/', require('./getPlates'));
+
 
 module.exports = router;
