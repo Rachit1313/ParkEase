@@ -2,7 +2,7 @@ const db = require('../../database');
 
 module.exports = (req, res) => {
   const { ticketID } = req.params;
-  const sql = `SELECT t.*, tr.ResponseText, tr.CreatedTime AS ResponseTime
+  const sql = `SELECT t.*, tr.ResponseText, DATE_FORMAT(tr.CreatedTime,'%Y-%m-%d %h:%i %p') AS ResponseTime
                FROM Tickets t
                LEFT JOIN TicketResponses tr ON t.TicketID = tr.TicketID
                WHERE t.TicketID = ?`;
