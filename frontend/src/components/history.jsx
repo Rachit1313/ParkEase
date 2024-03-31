@@ -61,7 +61,7 @@ export default function Component() {
     if (checkInTime > currentTime) {
       return 'Not started';
     }
-  
+
     const remainingTimeMillis = checkoutTime - currentTime;
   
     const hours = Math.floor(remainingTimeMillis / (1000 * 60 * 60));
@@ -166,7 +166,7 @@ export default function Component() {
                       </td>
                       <td className="py-2 px-4 border-b border-[#001840]">{booking.GarageID}</td>
                       <td className="py-2 px-4 border-b border-[#001840]">
-                        {calculateTimeRemaining(new Date(booking.CheckOutTime), new Date(booking.CheckInTime))}
+                        {calculateTimeRemaining((booking.CheckOutTime),(booking.CheckInTime))}
                       </td>
                     </tr>
                   ))}
