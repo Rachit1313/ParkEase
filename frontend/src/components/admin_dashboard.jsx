@@ -456,7 +456,7 @@ export default function Component() {
                                                 {booking.parkingSpotNumber}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            {new Date(booking.CheckInTime).toISOString().slice(0, 19).replace('T', ' ')}
+                                                {booking.checkinTime}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 underline">
                                                 {booking.Email}
