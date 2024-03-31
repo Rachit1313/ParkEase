@@ -153,12 +153,12 @@ export default function Component() {
                       <td className="py-2 px-4 border-b border-[#001840]">{booking.SpotID}</td>
                       <td className="py-2 px-4 border-b border-[#001840]">{localStorage.getItem("fullName")}</td>
                       <td className="py-2 px-4 border-b border-[#001840]">
-                        {new Date(booking.CheckInTime).toLocaleDateString('en-US', { timeZone: 'America/New_York' })} <br />
-                        {new Date(booking.CheckInTime).toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour12: true })}
+                        {new Date(booking.CheckInTime).split('T')[0]} <br />
+                        {new Date(booking.CheckInTime).split('T')[1].slice(0, 5)}
                       </td>
                       <td className="py-2 px-4 border-b border-[#001840]">
-                        {new Date(booking.CheckOutTime).toLocaleDateString('en-US', { timeZone: 'America/New_York' })} <br />
-                        {new Date(booking.CheckOutTime).toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour12: true })}
+                        {new Date(booking.CheckOutTime).split('T')[0]} <br />
+                        {new Date(booking.CheckOutTime).split('T')[1].slice(0, 5)}
                       </td>
                       <td className="py-2 px-4 border-b border-[#001840]">{booking.GarageID}</td>
                       <td className="py-2 px-4 border-b border-[#001840]">
