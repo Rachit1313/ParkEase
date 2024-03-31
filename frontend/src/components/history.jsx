@@ -48,25 +48,25 @@ export default function Component() {
 
   // Helper function to calculate time remaining
   const calculateTimeRemaining = (checkoutTime, checkInTime) => {
-    const estTime = new Date();
-
-    // Get the current time in Eastern Standard Time (EST) as a Date object
-    const estTimeString = estTime.toLocaleString('en-US', { timeZone: 'America/New_York' });
-    const currentTime = new Date(estTimeString);
-    
+   
+    // Current time in Eastern Time Zone
+    const currentTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  
+    console.log("Current time (ET):", currentTime);
+  
     if (checkoutTime <= currentTime) {
       return 'Expired';
     }
-
+  
     if (checkInTime > currentTime) {
       return 'Not started';
     }
-
+  
     const remainingTimeMillis = checkoutTime - currentTime;
-
+  
     const hours = Math.floor(remainingTimeMillis / (1000 * 60 * 60));
     const minutes = Math.floor((remainingTimeMillis % (1000 * 60 * 60)) / (1000 * 60));
-
+  
     return `${hours}hr ${minutes}min`;
   };
 
