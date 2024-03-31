@@ -63,6 +63,7 @@ export default function Component() {
     }
 
     const remainingTimeMillis = checkoutTime - currentTime;
+    console.log(`remaining ${remainingTimeMillis} = ${checkoutTime} - ${currentTime}`);
   
     const hours = Math.floor(remainingTimeMillis / (1000 * 60 * 60));
     const minutes = Math.floor((remainingTimeMillis % (1000 * 60 * 60)) / (1000 * 60));
