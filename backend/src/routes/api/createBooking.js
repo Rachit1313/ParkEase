@@ -8,10 +8,14 @@
 
 const db = require('../../database');
 const logger = require('../../logger');
+const moment = require('moment-timezone');
 
 // API to create a booking
 module.exports = (req, res) => {
   const { customerId, garageId, spotId, checkInTime, checkOutTime } = req.body;
+
+  const estTime = moment().tz('America/New_York'); // Get current time in EST
+  const formattedTime = estTime.format('YYYY-MM-DD HH:mm:ss'); // Format to required format
 
   // Step 1: Validate input
   if (!customerId || !garageId || !spotId || !checkInTime || !checkOutTime) {
@@ -37,10 +41,10 @@ module.exports = (req, res) => {
     // Create the booking entry
     const createBookingSql = `
       INSERT INTO Booking (CustomerID, GarageID, SpotID, BookingTime, CheckInTime, CheckOutTime, PaymentStatus)
-      VALUES (?, ?, ?, NOW(), ?, ?, 'Pending')
+      VALUES (?, ?, ?, ?, ?, ?, 'Pending')
     `;
 
-    db.query(createBookingSql, [customerId, garageId, spotId, checkInTime, checkOutTime], (err, bookingResult) => {
+    db.query(createBookingSql, [customerId, garageId, spotId, formattedTime, checkInTime, checkOutTime], (err, bookingResult) => {
       if (err) {
         logger.error('Error creating booking: ', err);
         return res.status(500).send('Error creating booking');
