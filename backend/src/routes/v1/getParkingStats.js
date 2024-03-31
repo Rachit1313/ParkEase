@@ -4,10 +4,14 @@
 
 const db = require('../../database');
 const logger = require('../../logger');
+const moment = require('moment-timezone');
 
 module.exports = (req, res) => {
     // Step 1: Count total parking spots
     const totalSpotsSql = 'SELECT COUNT(*) AS totalSpots FROM ParkingSpot';
+
+    const estTime = moment().tz('America/New_York'); // Get current time in EST
+    const formattedTime = estTime.format('YYYY-MM-DD HH:mm:ss'); // Format to required format
 
     db.query(totalSpotsSql, (err, totalResults) => {
         if (err) {
@@ -18,7 +22,6 @@ module.exports = (req, res) => {
         const totalSpots = totalResults[0].totalSpots;
 
         // Step 2: Count currently booked spots
-        const currentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
         const bookedSpotsSql = `
             SELECT COUNT(*) AS bookedSpots
             FROM Booking
@@ -27,7 +30,7 @@ module.exports = (req, res) => {
             AND PaymentStatus = "Paid"
         `;
 
-        db.query(bookedSpotsSql, [currentTime, currentTime], (err, bookedResults) => {
+        db.query(bookedSpotsSql, [formattedTime, formattedTime], (err, bookedResults) => {
             if (err) {
                 logger.error('Error fetching booked parking spots: ' + err);
                 return res.status(500).send('Error fetching booked parking spots');
