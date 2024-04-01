@@ -63,16 +63,14 @@ const SignUp = () => {
         body: JSON.stringify({ email, password, contactNumber: phone, fullName }),
       });
 
-      
       if (response.status == 201) {
-        const data = await response.json();
-        showNotification("Registeration successful", "failure");
+        showNotification("Registration successful", "failure");
         navigate("/");
       } else {
         showNotification("Registration failed", "failure");
       }
     } catch (error) {
-      showNotification("Error during registration", "failure");
+      showNotification("Error during registration", error);
     }
   };
 
