@@ -349,9 +349,7 @@ export default function Component() {
                         <a href="#" className="block py-4 px-8 text-white font-bold bg-[#0044b5]">Dashboard</a>
                         <Link to="/admin/all-customers" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Customers</Link>
                         <Link to="/admin/all-invigilators" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Invigilators</Link>
-                        <a href="#" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Parking Spots</a>
                         <Link to="/admin/all-tickets" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Ticket Resolution</Link>
-                        <a href="#" className="block py-4 px-8 text-[#888888] hover:bg-gray-200">Transactions</a>
                     </nav>
                 </aside>
                 <main className="flex-1 p-8">
