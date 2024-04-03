@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { faFacebookF, faTwitter, faInstagram, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { useNavigate } from "react-router-dom";
 import Notification from "./notification";
+import { Link } from 'react-router-dom';
 
 export default function Component({ bId, tFare }) {
     const [cardNumber, setCardNumber] = useState('');
@@ -133,13 +134,19 @@ export default function Component({ bId, tFare }) {
                 />
                 <ul className="flex justify-end gap-16">
 
-                    <li className="mt-2">Home</li>
+                    <li className="mt-2">
+                        <Link to="/home">Home</Link>
+                    </li>
                     <li className="mt-2 relative">
                         <span className="font-bold text-blue-800">Booking</span>
                         <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-800"></span>
                     </li>
-                    <li className="mt-2">History</li>
-                    <li className="mt-2">About Us</li>
+                    <li className="mt-2">
+                        <Link to="/history">History</Link>
+                    </li>
+                    <li className="mt-2">
+                        <Link to="/about">About Us</Link>
+                    </li>
                     <li className="mt-2">
                         <button className="rounded-lg bg-blue-800 text-white px-6 py-1.5 text-lg transition duration-300 ease-in-out hover:bg-blue-900">
                             My Account
