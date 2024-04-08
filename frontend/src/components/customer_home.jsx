@@ -335,6 +335,7 @@ export default function Component() {
                     type="date"
                     className="bg-gray-800 text-xs font-medium text-white rounded-sm w-full p-2"
                     onChange={(e) => setCheckInDate(e.target.value)}
+                    min={new Date().toISOString().split('T')[0]} // Set min attribute to today's date
                   />
                   <input
                     type="time"
@@ -351,6 +352,7 @@ export default function Component() {
                       type="date"
                       className="bg-gray-800 text-xs font-medium text-white rounded-sm w-full p-2"
                       onChange={(e) => setCheckOutDate(e.target.value)}
+                      min={checkInDate} // Use checkInDate for the min attribute
                     />
                     <input
                       type="time"
