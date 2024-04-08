@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import Notification from "./notification";
 import moment from 'moment-timezone';
+import Swal from 'sweetalert2';
 
 function FeatureSection({ title, description, imgSrc }) {
   return (
@@ -173,11 +174,30 @@ export default function Component() {
     }
   }
 
+ 
   const handleBookNow = async () => {
-    // Check if the user is sure to proceed to payment
-    const proceedToPayment = window.confirm("Are you sure you want to proceed to payment?");
+    // Use Swal for a stylish confirmation dialog
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, proceed to payment!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // User confirmed the action
+        proceedWithBooking();
+      }else{
+        showNotification("Booking aborted.." , "failure");
+      }
+    });
+  };
 
-    if (proceedToPayment) {
+  const proceedWithBooking = async () => {
+    
+    if (true) {
       const storedCustomerId = localStorage.getItem("customerId");
       const formattedCheckInTime = formatDateTime(checkInDate, checkInTime);
       const formattedCheckOutTime = formatDateTime(checkOutDate, checkOutTime);
@@ -202,20 +222,12 @@ export default function Component() {
           const bookingData = await createBookingResponse.json();
 
 
-          console.log('bookingId: ' + bookingData.bookingId)
-          console.log('fare: ' + bookingData.totalFare)
-
-
-
           var taxDeduct = bookingData.totalFare * 0.2;
-          var finalFare = bookingData.totalFare + taxDeduct;
-
-          const fareResponse = window.confirm(`Total Fare: ${finalFare} | Tax: 13%`);
+          var finalFare = (bookingData.totalFare + taxDeduct).toFixed(2); 
 
 
           localStorage.setItem('bookingId', bookingData.bookingId);
           localStorage.setItem('totalFare', finalFare);
-
 
 
           // Redirect user to /payment and pass bookingId and totalFare as props
