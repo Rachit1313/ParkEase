@@ -498,23 +498,22 @@ export default function Component() {
           <div>
             <h3 className="font-bold">My Account</h3>
             <ul className="mt-4 space-y-2">
-              <li className="text-[#d3d6d8] text-xs">View Profile</li>
-              <li className="text-[#d3d6d8] text-xs">Saved Payment Methods</li>
+              <li className="text-[#d3d6d8] text-xs">
+              <Link to="/vehicles">Saved Vehicles</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="font-bold">Company</h3>
             <ul className="mt-4 space-y-2">
-              <li className="text-[#d3d6d8] text-xs">About</li>
-              <li className="text-[#d3d6d8] text-xs">Support and Ticketing</li>
-              <li className="text-[#d3d6d8] text-xs">Contact Us</li>
+              <li className="text-[#d3d6d8] text-xs"><Link to="/about">About</Link></li>
+              <li className="text-[#d3d6d8] text-xs"><Link to="/ticket">Support and Ticketing</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="font-bold">Information</h3>
             <ul className="mt-4 space-y-2">
-              <li className="text-[#d3d6d8] text-xs">Booking</li>
-              <li className="text-[#d3d6d8] text-xs">History</li>
+              <li className="text-[#d3d6d8] text-xs"><Link to="/home">Booking</Link></li>
+              <li className="text-[#d3d6d8] text-xs"><Link to="/history">History</Link></li>
             </ul>
           </div>
         </div>
@@ -524,7 +523,7 @@ export default function Component() {
               <span className="inline-block align-middle mr-2">
                 <img src="https://file.rendit.io/n/Lg4lUAh5EQOZNQZYjLY4.svg" alt="Location" className="w-4" />
               </span>
-              1 Young st, Toronto, ON, M5E 1E5
+              1 Yonge st, Toronto, ON, M5E 1E5
             </div>
             <div className="mt-4 sm:mt-0">
               <span className="inline-block align-middle mr-2">
@@ -536,11 +535,11 @@ export default function Component() {
               <span className="inline-block align-middle mr-2">
                 <img src="https://file.rendit.io/n/88IORc8ykEumvEGdhRHX.svg" alt="Email" className="w-4" />
               </span>
-              info@parkease.com
+              noreplyparkease@gmail.com
             </div>
           </div>
           <div className="text-center py-4 text-[#d3d6d8] text-xs font-light">
-            Privacy Policy | Terms & Conditions | Do Not Share My Info
+            Privacy Policy | Terms & Conditions
           </div>
         </div>
       </div>
