@@ -99,7 +99,7 @@ export default function Component() {
                     const data = await response.json();
                     setVehicles(data);
                 } else {
-                    showNotification("Failed to fetch vehicles", "error");
+                    showNotification("No Vehicles found", "error");
                 }
             } catch (error) {
                 console.error('Error fetching vehicles:', error);
