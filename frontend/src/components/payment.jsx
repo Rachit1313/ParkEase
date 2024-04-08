@@ -13,6 +13,7 @@ export default function Component({ bId, tFare }) {
     const [totalFare, setTotalFare] = useState('');
     const [notification, setNotification] = useState(null);
     const [savedVehicles, setSavedVehicles] = useState([]);
+    const [selectedVehicle, setSelectedVehicle] = useState('');
 
     useEffect(() => {
         const fetchSavedVehicles = async () => {
@@ -88,6 +89,10 @@ export default function Component({ bId, tFare }) {
                 return;
             }
 
+            if (!selectedVehicle) {
+                showNotification("Please select a vehicle", "failure");
+                return;
+            }
             // Split the expiration date into month and year
             const [expMonth, expYear] = expDate.split(' / ');
 
@@ -192,8 +197,10 @@ export default function Component({ bId, tFare }) {
                                     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                                         <select
                                             className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                            value={selectedVehicle} // Bind to selectedVehicle state
+                                            onChange={(e) => setSelectedVehicle(e.target.value)} // Update on change
                                         >
-                                            <option value="" disabled selected>
+                                            <option value="" disabled>
                                                 Select License Plate
                                             </option>
                                             {savedVehicles.map((vehicle) => (
