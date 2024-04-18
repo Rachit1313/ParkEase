@@ -7,7 +7,8 @@ const getBookingById = async (req, res) => {
     const { bookingId } = req.params;
 
     // SQL query to select the booking by ID
-    const sql = "SELECT * FROM Booking WHERE BookingID = ?";
+    
+    const sql = "SELECT BookingID, CustomerID, GarageID, SpotID, TransactionID, BookingTime, DATE_FORMAT(CheckInTime, '%Y-%m-%d %h:%i %p') AS checkInTime, DATE_FORMAT(CheckOutTime, '%Y-%m-%d %h:%i %p') AS CheckOutTime, PaymentAmount, PaymentStatus FROM Booking WHERE BookingID = ?";
 
     db.query(sql, [bookingId], (err, results) => {
       if (err) {
