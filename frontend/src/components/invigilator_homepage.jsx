@@ -260,16 +260,10 @@ useEffect(() => {
                 Name: <span className="font-normal">{customerFullName || ''}</span>
               </div>
               <div className="font-bold">
-                Booking start date: <span className="font-normal">{bookingDetails ? new Date(bookingDetails.CheckInTime).toLocaleDateString() : ''}</span>
+                Booking start: <span className="font-normal">{bookingDetails ? bookingDetails.checkInTime: ''}</span>
               </div>
               <div className="font-bold">
-                Booking start time: <span className="font-normal">{bookingDetails ? new Date(bookingDetails.CheckInTime).toLocaleTimeString() : ''}</span>
-              </div>
-              <div className="font-bold">
-                Booking end date: <span className="font-normal">{bookingDetails ? new Date(bookingDetails.CheckOutTime).toLocaleDateString() : ''}</span>
-              </div>
-              <div className="font-bold">
-                Booking end time: <span className="font-normal">{bookingDetails ? new Date(bookingDetails.CheckOutTime).toLocaleTimeString() : ''}</span>
+                Booking end: <span className="font-normal">{bookingDetails ? bookingDetails.CheckOutTime : ''}</span>
               </div>
               {/* Assuming SpotID is available in bookingDetails for the parking slot */}
               <div className="font-bold mt-6">
